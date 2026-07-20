@@ -1,10 +1,3 @@
----
-title: "Pest Control Platform"
-subtitle: "AI Continuity & Production MVP Build Specification"
-author: "Project working document"
-date: "19 July 2026"
----
-
 # 1. How to use this document
 
 This is the authoritative continuity document for a residential pest-control web platform targeted at New York, United States. It is written so that a capable developer or AI coding agent can continue the project without access to the original conversation.
