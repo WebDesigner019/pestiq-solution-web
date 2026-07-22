@@ -38,7 +38,7 @@ export default function AboutPage() {
             </div>
             <div className="h-[280px] rounded-xl overflow-hidden border border-gray-200 shadow-md">
               <img 
-                src="/images/pest-technician-pro.png" 
+                src="/images/pestiq-technician-home.jpg" 
                 alt="PestIQ pest control technician performing a residential inspection" 
                 className="w-full h-full object-cover"
               />

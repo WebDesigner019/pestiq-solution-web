@@ -130,7 +130,7 @@ export function Header() {
             
             {/* Mega Dropdown */}
             {isMegaMenuOpen && (
-              <div className="absolute top-full left-0 w-screen max-w-7xl -ml-8 bg-white shadow-xl border-t border-gray-100 p-8 grid grid-cols-5 gap-6 z-50">
+              <div className="absolute top-full -left-20 md:-left-44 w-[92vw] max-w-[960px] bg-white shadow-2xl rounded-b-xl border border-gray-200 p-6 grid grid-cols-4 md:grid-cols-5 gap-4 z-50 text-[13px]">
                 {/* Column 1 */}
                 <div className="flex flex-col space-y-3">
                   <Link href="/pests/general" className="text-gray-600 hover:text-[#1a7a3c] hover:underline">General Pest Control</Link>

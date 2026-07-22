@@ -22,14 +22,14 @@ export default function HomePage() {
     {
       name: "Bed Bugs",
       icon: <BedDouble className="w-7 h-7" />,
-      image: "/images/bedroom.jpg",
+      image: "/images/bed-bug-mattress.png",
       description: "Careful inspection and treatment planning for suspected bed bug activity.",
       link: "/pests/bed-bugs"
     },
     {
       name: "Centipedes",
       icon: <BugOff className="w-7 h-7" />,
-      image: "/images/centipede.jpg",
+      image: "/images/spider-web.png",
       description: "Fast-moving pests typically found in damp, dark areas of the home.",
       link: "/pests/centipedes-millipedes"
     },
@@ -43,42 +43,42 @@ export default function HomePage() {
     {
       name: "Mice & Rats",
       icon: <Rat className="w-7 h-7" />,
-      image: "/images/rodent.jpg",
+      image: "/images/rodent-mouse.png",
       description: "Help with mice, droppings, travel paths, and possible entry gaps.",
       link: "/pests/rodents"
     },
     {
       name: "Mosquito",
       icon: <Mosquito className="w-7 h-7" />,
-      image: "/images/mosquito.jpg",
+      image: "/images/mosquito-macro.png",
       description: "Seasonal exterior service based on shade, water, and breeding conditions.",
       link: "/pests/mosquitoes"
     },
     {
       name: "Spiders",
       icon: <Bug className="w-7 h-7" />,
-      image: "/images/spider.jpg",
+      image: "/images/spider-web.png",
       description: "Web reduction, activity assessment, and practical prevention planning.",
       link: "/pests/spiders"
     },
     {
       name: "Termites",
       icon: <BugOff className="w-7 h-7" />,
-      image: "/images/termite.jpg",
+      image: "/images/ant-macro.jpg",
       description: "Comprehensive protection against wood-destroying insects.",
       link: "/pests/termites"
     },
     {
       name: "Ticks",
       icon: <Bug className="w-7 h-7" />,
-      image: "/images/tick.jpg",
+      image: "/images/mosquito-macro.png",
       description: "Protect your family and pets from tick-borne diseases.",
       link: "/pests/ticks"
     },
     {
       name: "Wildlife",
       icon: <Rat className="w-7 h-7" />,
-      image: "/images/wildlife.jpg",
+      image: "/images/suburban-houses.png",
       description: "Humane removal and exclusion services for larger pests.",
       link: "/pests/wildlife"
     }
@@ -95,7 +95,7 @@ export default function HomePage() {
           {/* Background Image Container */}
           <div className="absolute inset-0 z-0">
             <img 
-              src="/images/pest-technician-pro.png" 
+              src="/images/pestiq-technician-home.jpg" 
               alt="Pest Technician" 
               className="w-full h-full object-cover"
             />
@@ -425,7 +425,7 @@ export default function HomePage() {
         <section className="bg-white py-20 px-4">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
             <div className="w-full md:w-1/2 rounded-2xl overflow-hidden shadow-2xl h-96">
-              <img src="/images/pest-technician-pro.png" alt="Local expert waving" className="w-full h-full object-cover" />
+              <img src="/images/pestiq-technician-home.jpg" alt="Local expert waving" className="w-full h-full object-cover" />
             </div>
             <div className="w-full md:w-1/2">
               <h2 className="text-4xl font-black text-[#071b4d] mb-6 leading-tight">Local experts, global support</h2>
