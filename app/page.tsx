@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { useLocation } from "@/context/LocationContext";
+import { AddressAutocomplete } from "@/components/AddressAutocomplete";
 import { Bug, BedDouble, BugOff, Rat, Bug as Mosquito, Shield, ShieldCheck, Search, UserCheck, PhoneCall, PawPrint, Leaf, HardHat, ChevronRight, ChevronLeft, Star, ChevronDown, Clock } from "lucide-react";
 
 export default function HomePage() {
@@ -172,15 +173,15 @@ export default function HomePage() {
           <div className="w-full md:w-1/2 py-16 px-6 md:px-12 flex justify-end" style={{ backgroundImage: 'radial-gradient(#d1d5db 2px, transparent 2px)', backgroundSize: '16px 16px' }}>
             <div className="max-w-lg w-full flex flex-col justify-center">
               <h2 className="text-3xl font-black text-[#071b4d] mb-4">Beat the Bite!</h2>
-              <p className="text-lg text-[#071b4d] mb-8 font-medium">
-                Start Mosquito & Tick Control today and Save $50. <strong className="font-bold">Use code BITE50</strong> at checkout.²
+              <p className="text-base text-[#071b4d] mb-6 font-medium">
+                Enter your residential address to check local rates & save $50 with code <strong className="font-bold">SAVE50</strong>.
               </p>
-              <button 
-                onClick={() => setIsAddressModalOpen(true)}
-                className="bg-[#ffc400] text-[#071b4d] px-8 py-3 rounded-full font-bold hover:bg-yellow-400 transition-colors shadow-sm w-max text-sm tracking-wide"
-              >
-                Save Now
-              </button>
+              <div className="w-full max-w-md">
+                <AddressAutocomplete 
+                  placeholder="Enter your address or zip code..."
+                  buttonText="Check Rates"
+                />
+              </div>
             </div>
           </div>
           <div className="w-full md:w-1/2 h-64 md:h-auto relative">

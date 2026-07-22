@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 
-export type PriceTier = "nyc" | "westchester" | "newjersey" | "other" | null;
+export type PriceTier = "nyc" | "westchester" | "longisland" | "newjersey" | "ct" | "other" | null;
 
 export interface CartItem {
   planId: "essential" | "complete" | "onetime";
@@ -20,12 +20,18 @@ interface LocationContextType {
   propertySqFt: number | null;
   cartItem: CartItem | null;
   isAddressModalOpen: boolean;
+  isUnserviceableModalOpen: boolean;
+  unserviceableAddress: string;
   setIsAddressModalOpen: (open: boolean) => void;
+  setIsUnserviceableModalOpen: (open: boolean) => void;
+  setUnserviceableAddress: (address: string) => void;
   setZipCode: (zip: string) => boolean;
   setStreetAddress: (address: string) => void;
+  setPropertySqFt: (sqft: number) => void;
   setCartItem: (item: CartItem | null) => void;
   clearLocation: () => void;
   clearCart: () => void;
+  submitAddressSearch: (fullAddress: string) => boolean;
 }
 
 const LocationContext = createContext<LocationContextType | undefined>(undefined);
@@ -35,9 +41,11 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
   const [streetAddress, setStreetAddressState] = useState<string>("");
   const [serviceArea, setServiceArea] = useState<string>("New York Metro");
   const [priceTier, setPriceTier] = useState<PriceTier>(null);
-  const [propertySqFt, setPropertySqFt] = useState<number | null>(null);
+  const [propertySqFt, setPropertySqFtState] = useState<number | null>(null);
   const [cartItem, setCartItemState] = useState<CartItem | null>(null);
   const [isAddressModalOpen, setIsAddressModalOpen] = useState<boolean>(false);
+  const [isUnserviceableModalOpen, setIsUnserviceableModalOpen] = useState<boolean>(false);
+  const [unserviceableAddress, setUnserviceableAddress] = useState<string>("");
 
   const calculateSqFt = (addr: string): number => {
     if (!addr) return 2000;
@@ -50,56 +58,63 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
     return Math.round(raw / 50) * 50;
   };
 
-  const resolveZip = (zip: string): { tier: PriceTier; area: string } => {
-    // Try to extract 5-digit zip code if it's a full address
-    const zipMatch = zip.trim().match(/\b\d{5}\b/);
-    const cleanZip = zipMatch ? zipMatch[0] : zip.trim();
-    if (!/^\d{5}$/.test(cleanZip)) {
-      // String fallback matching
-      const t = zip.toLowerCase();
-      if (["manhattan", "brooklyn", "bronx", "queens", "staten island"].some(x => t.includes(x))) {
-        return { tier: "nyc", area: "New York City" };
-      }
-      if (["yonkers", "mount vernon", "new rochelle", "white plains"].some(x => t.includes(x))) {
-        return { tier: "westchester", area: "Lower Westchester" };
-      }
-      if (["lakewood", "brick", "toms river"].some(x => t.includes(x))) {
-        return { tier: "newjersey", area: "Ocean County, NJ" };
-      }
+  const resolveZip = (zipInput: string): { tier: PriceTier; area: string } => {
+    const text = zipInput.trim().toLowerCase();
+    
+    // String keyword check for cities/boroughs
+    if (["manhattan", "brooklyn", "bronx", "queens", "staten island", "new york", "nyc"].some(x => text.includes(x))) {
+      return { tier: "nyc", area: "New York City" };
+    }
+    if (["yonkers", "mount vernon", "new rochelle", "white plains", "scarsdale", "rye", "mamaroneck", "westchester"].some(x => text.includes(x))) {
+      return { tier: "westchester", area: "Lower Westchester, NY" };
+    }
+    if (["great neck", "garden city", "hempstead", "oyster bay", "nassau", "long island"].some(x => text.includes(x))) {
+      return { tier: "longisland", area: "Long Island, NY" };
+    }
+    if (["jersey city", "hoboken", "newark", "hackensack", "paterson", "toms river", "lakewood", "brick", "edison", "fort lee", "new jersey", "nj"].some(x => text.includes(x))) {
+      return { tier: "newjersey", area: "Northern & Central NJ" };
+    }
+    if (["stamford", "greenwich", "norwalk", "westport", "fairfield", "connecticut", "ct"].some(x => text.includes(x))) {
+      return { tier: "ct", area: "Fairfield County, CT" };
+    }
+
+    // Try extracting 5-digit zip code
+    const zipMatch = text.match(/\b\d{5}\b/);
+    if (!zipMatch) {
       return { tier: null, area: "New York Metro" };
     }
 
-    const num = parseInt(cleanZip, 10);
+    const num = parseInt(zipMatch[0], 10);
 
-    const isNyc =
-      (num >= 10001 && num <= 10282) ||  // Manhattan
-      (num >= 10301 && num <= 10314) ||  // Staten Island
-      (num >= 10451 && num <= 10475) ||  // Bronx
-      (num >= 11101 && num <= 11109) ||  // Queens (LIC/Astoria)
-      (num >= 11201 && num <= 11256);    // Brooklyn
+    // NYC 5 Boroughs: 10001 - 10282 (Manhattan), 10301 - 10314 (Staten Island), 10451 - 10475 (Bronx), 11001 - 11697 (Queens & Brooklyn)
+    if ((num >= 10001 && num <= 10282) || (num >= 10301 && num <= 10314) || (num >= 10451 && num <= 10475) || (num >= 11001 && num <= 11697) || (num >= 11201 && num <= 11256)) {
+      return { tier: "nyc", area: "New York City" };
+    }
 
-    if (isNyc) return { tier: "nyc", area: "New York City" };
+    // Lower Westchester: 10501 - 10805
+    if (num >= 10501 && num <= 10805) {
+      return { tier: "westchester", area: "Lower Westchester, NY" };
+    }
 
-    const isWestchester =
-      (num >= 10701 && num <= 10710) ||  // Yonkers
-      (num >= 10550 && num <= 10553) ||  // Mount Vernon
-      (num >= 10801 && num <= 10805) ||  // New Rochelle
-      (num >= 10601 && num <= 10610);    // White Plains
+    // Long Island (Nassau / Suffolk): 11501 - 11999
+    if (num >= 11501 && num <= 11999) {
+      return { tier: "longisland", area: "Long Island, NY" };
+    }
 
-    if (isWestchester) return { tier: "westchester", area: "Lower Westchester" };
+    // Northern & Central NJ: 07001 - 07999, 08701 - 08908
+    if ((num >= 7001 && num <= 7999) || (num >= 8701 && num <= 8908)) {
+      return { tier: "newjersey", area: "Northern & Central NJ" };
+    }
 
-    const isNewJersey =
-      (num >= 8701 && num <= 8702) ||  // Lakewood, NJ
-      (num >= 8723 && num <= 8724) ||  // Brick Township, NJ
-      (num >= 8753 && num <= 8755);    // Toms River, NJ
-
-    if (isNewJersey) return { tier: "newjersey", area: "Ocean County, NJ" };
+    // Fairfield County CT: 06801 - 06928
+    if (num >= 6801 && num <= 6928) {
+      return { tier: "ct", area: "Fairfield County, CT" };
+    }
 
     return { tier: "other", area: "Unserviceable Area" };
   };
 
   const handleSetZipCode = (zip: string): boolean => {
-    // Try to extract 5-digit ZIP code from string
     const zipMatch = zip.match(/\b\d{5}\b/);
     const cleanZip = zipMatch ? zipMatch[0] : zip;
 
@@ -116,11 +131,28 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
   const handleSetStreetAddress = (address: string) => {
     setStreetAddressState(address);
     const resolvedSqFt = calculateSqFt(address);
-    setPropertySqFt(resolvedSqFt);
+    setPropertySqFtState(resolvedSqFt);
     if (typeof window !== "undefined") {
       localStorage.setItem("pestiq_address", address);
       localStorage.setItem("pestiq_sqft", resolvedSqFt.toString());
     }
+  };
+
+  const handleSetPropertySqFt = (sqft: number) => {
+    setPropertySqFtState(sqft);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("pestiq_sqft", sqft.toString());
+    }
+  };
+
+  const submitAddressSearch = (fullAddress: string): boolean => {
+    handleSetStreetAddress(fullAddress);
+    const isSupported = handleSetZipCode(fullAddress);
+    if (!isSupported) {
+      setUnserviceableAddress(fullAddress);
+      setIsUnserviceableModalOpen(true);
+    }
+    return isSupported;
   };
 
   const handleSetCartItem = (item: CartItem | null) => {
@@ -139,7 +171,7 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
     setStreetAddressState("");
     setServiceArea("New York Metro");
     setPriceTier(null);
-    setPropertySqFt(null);
+    setPropertySqFtState(null);
     if (typeof window !== "undefined") {
       localStorage.removeItem("pestiq_zip");
       localStorage.removeItem("pestiq_address");
@@ -164,7 +196,7 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
       
       if (savedZip) handleSetZipCode(savedZip);
       if (savedAddress) setStreetAddressState(savedAddress);
-      if (savedSqFt) setPropertySqFt(parseInt(savedSqFt, 10));
+      if (savedSqFt) setPropertySqFtState(parseInt(savedSqFt, 10));
       if (savedCart) {
         try { setCartItemState(JSON.parse(savedCart)); } catch {}
       }
@@ -182,12 +214,18 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
         propertySqFt,
         cartItem,
         isAddressModalOpen,
+        isUnserviceableModalOpen,
+        unserviceableAddress,
         setIsAddressModalOpen,
+        setIsUnserviceableModalOpen,
+        setUnserviceableAddress,
         setZipCode: handleSetZipCode,
         setStreetAddress: handleSetStreetAddress,
+        setPropertySqFt: handleSetPropertySqFt,
         setCartItem: handleSetCartItem,
         clearLocation: handleClearLocation,
         clearCart: handleClearCart,
+        submitAddressSearch
       }}
     >
       {children}

@@ -7,7 +7,7 @@ import { Footer } from "@/components/Footer";
 import { useLocation } from "@/context/LocationContext";
 
 export default function PlansPage() {
-  const { priceTier, serviceArea, propertySqFt, zipCode, setIsAddressModalOpen } = useLocation();
+  const { priceTier, serviceArea, propertySqFt, setPropertySqFt, zipCode, setIsAddressModalOpen } = useLocation();
 
   // Helper to compute local adjusted prices
   const getPrices = () => {
@@ -86,20 +86,38 @@ export default function PlansPage() {
           <div className="v3-content">
             <p>PestIQ Solutions plans</p>
             <h1>Straightforward protection for your property.</h1>
-            <span className="flex flex-col items-center gap-2">
+            <div className="flex flex-col items-center gap-4 mt-2">
               {zipCode ? (
-                <span className="bg-[#e8f5ed] text-[#1a7a3c] border border-[#1a7a3c]/10 px-4 py-1.5 rounded-full text-[13px] font-semibold flex items-center gap-1.5">
-                  <span>📍</span> Local pricing for: <strong>{serviceArea}</strong> {propertySqFt && `(${propertySqFt} sq ft)`}
-                </span>
+                <div className="flex flex-col sm:flex-row items-center gap-3 bg-[#e8f5ed] border border-[#1a7a3c]/20 px-6 py-3 rounded-2xl shadow-sm">
+                  <span className="text-sm font-semibold text-[#1a7a3c] flex items-center gap-1.5">
+                    📍 Local pricing for: <strong>{serviceArea}</strong>
+                  </span>
+                  
+                  <div className="flex items-center gap-2 pl-0 sm:pl-3 border-t sm:border-t-0 sm:border-l border-[#1a7a3c]/20 pt-2 sm:pt-0">
+                    <label className="text-xs font-bold text-gray-700 whitespace-nowrap">Home Size:</label>
+                    <input 
+                      type="range" 
+                      min="800" 
+                      max="5000" 
+                      step="100" 
+                      value={propertySqFt || 2000} 
+                      onChange={(e) => setPropertySqFt(parseInt(e.target.value, 10))}
+                      className="w-28 sm:w-36 accent-[#1a7a3c] cursor-pointer"
+                    />
+                    <span className="text-xs font-extrabold text-[#071b4d] bg-white px-2.5 py-1 rounded-md border border-gray-200">
+                      {propertySqFt || 2000} sq ft
+                    </span>
+                  </div>
+                </div>
               ) : (
                 <button
                   onClick={() => setIsAddressModalOpen(true)}
-                  className="text-zinc-600 hover:text-[#1a7a3c] font-semibold text-[13.5px] underline decoration-dotted"
+                  className="bg-[#0066cc] hover:bg-[#0052a3] text-white font-bold px-6 py-2.5 rounded-full text-xs uppercase tracking-wider shadow-sm transition-all"
                 >
-                  Enter your address or ZIP code to view local adjusted pricing.
+                  📍 Enter address to reveal exact local pricing →
                 </button>
               )}
-            </span>
+            </div>
           </div>
         </section>
 
