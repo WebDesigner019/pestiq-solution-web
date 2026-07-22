@@ -5,23 +5,23 @@ import Link from "next/link";
 
 export function Logo() {
   return (
-    <Link href="/" className="flex items-center gap-3 group py-1" aria-label="PestIQ Solutions Home">
-      <div className="w-10 h-10 rounded-xl bg-[#071b4d] flex items-center justify-center p-2 shadow-lg border border-[#1a7a3c]/40 group-hover:border-[#1a7a3c] transition-all group-hover:scale-105">
-        <svg viewBox="0 0 100 100" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M50 8 L85 24 V52 C85 72 68 88 50 94 C32 88 15 72 15 52 V24 L50 8 Z" fill="#0a2540" stroke="#1a7a3c" strokeWidth="6" strokeLinejoin="round" />
-          <path d="M38 30 H58 C66 30 72 36 72 44 C72 52 66 58 58 58 H38 V30 Z" fill="#1a7a3c" />
-          <path d="M38 30 V72" stroke="#ffffff" strokeWidth="7" strokeLinecap="round" />
-          <circle cx="58" cy="44" r="5" fill="#ffc400" />
+    <Link href="/" className="flex items-center gap-3.5 group py-1" aria-label="PestIQ Solutions Home">
+      <div className="w-11 h-11 rounded-xl bg-[#0a2540] flex items-center justify-center p-1.5 shadow-md group-hover:scale-105 transition-transform">
+        <svg viewBox="0 0 200 200" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M100 32 L160 82 V152 H40 V82 Z" stroke="#ffffff" strokeWidth="13" strokeLinejoin="round" strokeLinecap="round" />
+          <path d="M138 52 V38 H152 V64" stroke="#ffffff" strokeWidth="11" strokeLinejoin="round" strokeLinecap="round" />
+          <circle cx="95" cy="110" r="42" stroke="#0066cc" strokeWidth="18" />
+          <path d="M125 140 L158 172" stroke="#0066cc" strokeWidth="18" strokeLinecap="round" />
+          <circle cx="95" cy="110" r="12" fill="#ffc400" />
         </svg>
       </div>
       <div className="flex flex-col justify-center">
-        <div className="flex items-center leading-none">
-          <span className="text-2xl font-black tracking-tight text-[#071b4d]">PEST</span>
-          <span className="text-2xl font-black tracking-tight text-[#1a7a3c]">IQ</span>
-          <span className="ml-1 text-[10px] font-black text-[#ffc400] bg-[#071b4d] px-1 py-0.5 rounded tracking-widest uppercase">PRO</span>
-        </div>
-        <span className="text-[8.5px] font-extrabold tracking-[0.26em] text-gray-500 uppercase mt-1">
-          PEST & HOME SOLUTIONS
+        <span className="text-[28px] font-black tracking-tight leading-none flex items-center">
+          <span className="text-[#071b4d]">Pest</span>
+          <span className="text-[#0066cc]">IQ</span>
+        </span>
+        <span className="text-[12px] font-medium tracking-[0.24em] text-[#071b4d] mt-1">
+          Solutions
         </span>
       </div>
     </Link>

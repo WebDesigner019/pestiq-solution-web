@@ -33,12 +33,9 @@ export default function AboutPage() {
           </div>
           <div className="h-[280px] rounded-xl overflow-hidden border border-border-gray shadow-md">
             <img 
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Exterminator.jpg/800px-Exterminator.jpg" 
+              src="/images/pest-technician-pro.png" 
               alt="PestIQ pest control technician performing a residential inspection" 
               className="w-full h-full object-cover"
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&q=80&w=600";
-              }}
             />
           </div>
         </section>
