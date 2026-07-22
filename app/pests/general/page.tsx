@@ -44,7 +44,7 @@ export default function GeneralPestControlPage() {
     { name: "Cockroaches", image: "/images/cockroach.jpg", title: "Keep roaches out of your kitchen.", desc: "Cockroaches are resilient pests that can contaminate food and spread disease. Our targeted treatments get to the source." },
     { name: "Bed Bugs", image: "/images/bedroom.jpg", title: "Sleep tight, don't let the bed bugs bite.", desc: "Bed bugs are notoriously difficult to eliminate. We use specialized techniques to ensure your home is completely bed bug free." },
     { name: "Mice & Rats", image: "/images/rodent.jpg", title: "Stop rodents in their tracks.", desc: "Rodents can cause structural damage and pose health risks. We focus on exclusion and elimination." },
-    { name: "Termites", image: "/images/termite.jpg", title: "Protect your biggest investment.", desc: "Termites silently destroy wood structures. We offer advanced baiting and liquid treatments to stop them." },
+    { name: "Termites", image: "/images/suburban-houses.png", title: "Protect your biggest investment.", desc: "Termites silently destroy wood structures. We offer advanced baiting and liquid treatments to stop them." },
     { name: "Spiders", image: "/images/spider.jpg", title: "Clear the webs and keep spiders away.", desc: "We knock down webs and apply perimeter treatments to keep spiders outside where they belong." }
   ];
 
@@ -55,10 +55,10 @@ export default function GeneralPestControlPage() {
       <Header />
       <main className="w-full">
         {/* HERO SECTION */}
-        <section className="relative w-full h-[500px] md:h-[600px] flex items-center bg-gray-900 overflow-hidden">
+        <section className="relative w-full min-h-[420px] md:h-[600px] py-12 md:py-0 flex items-center bg-gray-900 overflow-hidden">
           <div className="absolute inset-0 z-0">
             <img 
-              src="/images/pest-technician.jpg" 
+              src="/images/pestiq-technician-home.jpg" 
               alt="Pest Technician" 
               className="w-full h-full object-cover opacity-70 object-center"
             />

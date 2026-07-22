@@ -42,28 +42,28 @@ export function Header() {
     <header className="relative w-full z-50 flex flex-col font-sans">
       {/* Tier 1 - Utility Bar */}
       <div 
-        className="w-full flex items-center justify-between px-4 md:px-8 text-white text-xs"
-        style={{ backgroundColor: "#071b4d", height: "36px" }}
+        className="w-full flex items-center justify-between px-3 md:px-8 text-white text-[11px] sm:text-xs"
+        style={{ backgroundColor: "#071b4d", minHeight: "32px" }}
       >
-        <div className="flex items-center space-x-6">
+        <div className="flex items-center space-x-3 sm:space-x-6">
           <span>Need Help? <a href="tel:2125550148" className="font-semibold hover:underline">(212) 555-0148</a></span>
-          <Link href="/locations" className="hover:underline">Locations</Link>
-          <Link href="/contact" className="hover:underline">Contact Us</Link>
+          <Link href="/locations" className="hidden sm:inline hover:underline">Locations</Link>
+          <Link href="/contact" className="hidden sm:inline hover:underline">Contact Us</Link>
         </div>
         <div>
           <Link 
             href="/commercial" 
-            className="px-3 py-1 rounded-full text-white font-semibold transition-opacity hover:opacity-80 flex items-center"
+            className="px-2.5 py-0.5 rounded-full text-white font-semibold transition-opacity hover:opacity-80 flex items-center text-[10px] sm:text-xs"
             style={{ backgroundColor: "#0a2540" }}
           >
-            Commercial <ChevronDown className="w-4 h-4 ml-1" />
+            Commercial <ChevronDown className="w-3 h-3 ml-1" />
           </Link>
         </div>
       </div>
 
       {/* Tier 2 - Brand Bar */}
-      <div className="w-full bg-white flex items-center justify-between px-4 md:px-8 py-4 border-b border-gray-100 relative">
-        <div className="flex-shrink-0 flex items-center">
+      <div className="w-full bg-white flex items-center justify-between px-3 sm:px-6 md:px-8 py-2.5 sm:py-4 border-b border-gray-100 relative">
+        <div className="flex-shrink-0 flex items-center scale-90 sm:scale-100 origin-left">
           <Logo />
         </div>
 
@@ -81,41 +81,41 @@ export function Header() {
         </div>
 
         {/* Right: Icons */}
-        <div className="flex items-center space-x-4 sm:space-x-6">
+        <div className="flex items-center space-x-2.5 sm:space-x-5">
           {/* Mobile Location Quick Button */}
           <button 
             onClick={() => setIsAddressModalOpen(true)}
-            className="md:hidden flex items-center gap-1 bg-gray-50 border border-gray-200 px-2.5 py-1.5 rounded text-[11px] font-bold text-[#071b4d]"
+            className="md:hidden flex items-center gap-1 bg-gray-50 border border-gray-200 px-2 py-1 rounded text-[10px] font-bold text-[#071b4d]"
           >
-            <MapPin className="w-3.5 h-3.5 text-[#1a7a3c]" />
-            <span className="truncate max-w-[80px]">{zipCode ? serviceArea.split(",")[0] : "Location"}</span>
+            <MapPin className="w-3 h-3 text-[#1a7a3c]" />
+            <span className="truncate max-w-[65px]">{zipCode ? serviceArea.split(",")[0] : "Location"}</span>
           </button>
 
           <a href="tel:2125550148" className="hidden sm:flex flex-col items-center text-gray-700 hover:text-[#071b4d]">
-            <Phone className="w-5 h-5 mb-0.5" />
-            <span className="text-xs font-semibold">Call</span>
+            <Phone className="w-4 h-4 sm:w-5 sm:h-5 mb-0.5" />
+            <span className="text-[10px] sm:text-xs font-semibold">Call</span>
           </a>
           <Link href="/cart" className="flex flex-col items-center text-gray-700 hover:text-[#071b4d] relative">
-            <ShoppingCart className="w-5 h-5 mb-0.5" />
-            <span className="text-xs font-semibold">Cart</span>
+            <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 mb-0.5" />
+            <span className="text-[10px] sm:text-xs font-semibold">Cart</span>
             {cartItem !== null && (
-              <span className="absolute -top-1 -right-2 bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+              <span className="absolute -top-1 -right-2 bg-red-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">
                 1
               </span>
             )}
           </Link>
           <Link href="/portal" className="flex flex-col items-center text-gray-700 hover:text-[#071b4d]">
-            <User className="w-5 h-5 mb-0.5" />
-            <span className="text-xs font-semibold">Account</span>
+            <User className="w-4 h-4 sm:w-5 sm:h-5 mb-0.5" />
+            <span className="text-[10px] sm:text-xs font-semibold">Account</span>
           </Link>
 
           {/* Mobile menu button */}
           <button 
-            className="md:hidden flex items-center justify-center text-gray-700 p-1 rounded-lg border border-gray-200"
+            className="md:hidden flex items-center justify-center text-gray-700 p-1.5 rounded-lg border border-gray-200 bg-gray-50"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle mobile menu"
           >
-            <Menu className="w-6 h-6" />
+            <Menu className="w-5 h-5" />
           </button>
         </div>
       </div>

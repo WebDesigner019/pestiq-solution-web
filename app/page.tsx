@@ -91,16 +91,16 @@ export default function HomePage() {
       <Header />
       <main className="w-full">
         {/* Section 1: HERO */}
-        <section className="relative w-full h-[600px] flex items-center bg-[#f4f3f0] overflow-hidden">
+        <section className="relative w-full min-h-[540px] md:h-[620px] py-10 md:py-0 flex items-center bg-[#f4f3f0] overflow-hidden">
           {/* Background Image Container */}
           <div className="absolute inset-0 z-0">
             <img 
               src="/images/pestiq-technician-home.jpg" 
               alt="Pest Technician" 
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover object-center"
             />
             {/* Dark gradient overlay for text readability on left */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 md:via-black/40 to-black/30 md:to-transparent"></div>
           </div>
           
           {/* Diagonal Dark Blue Shape on Right */}
@@ -109,54 +109,58 @@ export default function HomePage() {
             style={{ clipPath: "polygon(40% 0, 100% 0, 100% 100%, 0% 100%)" }}
           ></div>
 
-          <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 w-full flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 w-full flex flex-col md:flex-row justify-between items-center gap-6 sm:gap-8">
             <div className="text-white w-full md:w-[55%]">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-4 tracking-tight drop-shadow-md">PestIQ<sup className="text-lg md:text-xl lg:text-2xl top-[-0.5em]">®</sup> Pest Control</h1>
-              <p className="text-xl md:text-2xl font-bold mb-8 drop-shadow-md">Protecting what matters most</p>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-2 sm:mb-4 tracking-tight drop-shadow-md">
+                PestIQ<sup className="text-base sm:text-lg md:text-xl lg:text-2xl top-[-0.5em]">®</sup> Pest Control
+              </h1>
+              <p className="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-8 drop-shadow-md text-gray-200">
+                Protecting what matters most
+              </p>
               
-              <div className="bg-[#0a2540]/85 backdrop-blur-md border border-white/20 p-8 rounded-2xl shadow-2xl w-max mt-4">
-                <div className="flex flex-wrap gap-4 mb-6 max-w-[500px]">
-                  <Link href="/pests/ants" className="bg-white hover:bg-gray-100 rounded-full px-6 py-3.5 transition-colors flex items-center gap-2.5 shadow-md w-max">
-                    <Bug className="w-5 h-5 text-[#ffc400]"/> 
-                    <span className="font-extrabold text-slate-900 text-sm tracking-wide">Pest Control ›</span>
+              <div className="bg-[#0a2540]/90 backdrop-blur-md border border-white/20 p-5 sm:p-8 rounded-2xl shadow-2xl w-full max-w-[520px]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3.5 mb-4 sm:mb-6">
+                  <Link href="/pests/ants" className="bg-white hover:bg-gray-100 rounded-full px-4 sm:px-5 py-2.5 sm:py-3 transition-colors flex items-center gap-2 shadow-md">
+                    <Bug className="w-4 h-4 sm:w-5 sm:h-5 text-[#ffc400] flex-shrink-0"/> 
+                    <span className="font-extrabold text-slate-900 text-xs sm:text-sm tracking-wide truncate">Pest Control ›</span>
                   </Link>
-                  <Link href="/pests/termites" className="bg-white hover:bg-gray-100 rounded-full px-6 py-3.5 transition-colors flex items-center gap-2.5 shadow-md w-max">
-                    <ShieldCheck className="w-5 h-5 text-[#ffc400]"/> 
-                    <span className="font-extrabold text-slate-900 text-sm tracking-wide">Termite Control ›</span>
+                  <Link href="/pests/termites" className="bg-white hover:bg-gray-100 rounded-full px-4 sm:px-5 py-2.5 sm:py-3 transition-colors flex items-center gap-2 shadow-md">
+                    <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-[#ffc400] flex-shrink-0"/> 
+                    <span className="font-extrabold text-slate-900 text-xs sm:text-sm tracking-wide truncate">Termite Control ›</span>
                   </Link>
-                  <Link href="/pests/rodents" className="bg-white hover:bg-gray-100 rounded-full px-6 py-3.5 transition-colors flex items-center gap-2.5 shadow-md w-max">
-                    <Rat className="w-5 h-5 text-[#ffc400]"/> 
-                    <span className="font-extrabold text-slate-900 text-sm tracking-wide">Rodent Control ›</span>
+                  <Link href="/pests/rodents" className="bg-white hover:bg-gray-100 rounded-full px-4 sm:px-5 py-2.5 sm:py-3 transition-colors flex items-center gap-2 shadow-md">
+                    <Rat className="w-4 h-4 sm:w-5 sm:h-5 text-[#ffc400] flex-shrink-0"/> 
+                    <span className="font-extrabold text-slate-900 text-xs sm:text-sm tracking-wide truncate">Rodent Control ›</span>
                   </Link>
-                  <Link href="/pests/mosquitoes" className="bg-white hover:bg-gray-100 rounded-full px-6 py-3.5 transition-colors flex items-center gap-2.5 shadow-md w-max">
-                    <Mosquito className="w-5 h-5 text-[#ffc400]"/> 
-                    <span className="font-extrabold text-slate-900 text-sm tracking-wide">Mosquito & Tick Control ›</span>
+                  <Link href="/pests/mosquitoes" className="bg-white hover:bg-gray-100 rounded-full px-4 sm:px-5 py-2.5 sm:py-3 transition-colors flex items-center gap-2 shadow-md">
+                    <Mosquito className="w-4 h-4 sm:w-5 sm:h-5 text-[#ffc400] flex-shrink-0"/> 
+                    <span className="font-extrabold text-slate-900 text-xs sm:text-sm tracking-wide truncate">Mosquito Control ›</span>
                   </Link>
                 </div>
                 <button 
                   onClick={() => { document.getElementById('pest-library')?.scrollIntoView({ behavior: 'smooth' }) }}
-                  className="text-[#ffc400] hover:text-white font-bold text-[15px] transition-colors flex items-center gap-1"
+                  className="text-[#ffc400] hover:text-white font-bold text-xs sm:text-[15px] transition-colors flex items-center gap-1"
                 >
                   View more services <ChevronDown className="w-4 h-4" />
                 </button>
               </div>
             </div>
 
-            <div className="w-full md:w-[45%] flex justify-end md:pr-4 mt-8 md:mt-0">
-              <div className="bg-[#f4f5f7] rounded shadow-2xl overflow-hidden w-full max-w-sm relative">
+            <div className="w-full md:w-[45%] flex justify-center md:justify-end mt-4 md:mt-0">
+              <div className="bg-[#f4f5f7] rounded-2xl shadow-2xl overflow-hidden w-full max-w-sm relative border border-gray-200">
                 {/* Floating Green Badge */}
-                <div className="absolute top-0 left-0 bg-[#1a7a3c] text-white px-4 py-2 font-bold text-[12px] uppercase tracking-wider flex items-center gap-2 rounded-br-lg z-20">
-                  <Clock className="w-4 h-4" /> SUMMER SAVINGS
+                <div className="absolute top-0 left-0 bg-[#1a7a3c] text-white px-3.5 py-1.5 font-bold text-[11px] uppercase tracking-wider flex items-center gap-1.5 rounded-br-lg z-20">
+                  <Clock className="w-3.5 h-3.5" /> SUMMER SAVINGS
                 </div>
                 
-                <div className="p-8 pt-16">
-                  <h2 className="text-[26px] leading-tight font-black text-[#0a2540] mb-4">Save $50 on Pest Control</h2>
-                  <p className="text-[#0a2540] font-medium mb-8 text-[15px] leading-relaxed">
+                <div className="p-6 sm:p-8 pt-12 sm:pt-14">
+                  <h2 className="text-2xl sm:text-[26px] leading-tight font-black text-[#0a2540] mb-3">Save $50 on Pest Control</h2>
+                  <p className="text-[#0a2540] font-medium mb-6 text-xs sm:text-[15px] leading-relaxed">
                     Use code <strong className="font-bold">SAVE50</strong> at checkout to save $50 when starting a new pest control plan.
                   </p>
                   <button 
                     onClick={() => setIsAddressModalOpen(true)}
-                    className="bg-[#ffc400] hover:bg-[#e6af00] text-[#0a2540] font-bold text-[15px] px-8 py-3.5 rounded-full transition-all flex items-center gap-1 w-max shadow-sm"
+                    className="bg-[#ffc400] hover:bg-[#e6af00] text-[#0a2540] font-bold text-xs sm:text-[15px] px-6 sm:px-8 py-3 sm:py-3.5 rounded-full transition-all flex items-center gap-1 w-max shadow-sm"
                   >
                     Get started <ChevronRight className="w-4 h-4" />
                   </button>

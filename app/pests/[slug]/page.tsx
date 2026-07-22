@@ -288,11 +288,11 @@ export default function PestServicePage(props: { params: Promise<{ slug: string 
         </div>
 
         {/* Hero Section */}
-        <section className="relative w-full h-[400px] flex items-center justify-center bg-gray-900">
+        <section className="relative w-full min-h-[360px] md:h-[420px] py-12 md:py-0 flex items-center justify-center bg-gray-900">
           <div className="absolute inset-0 z-0">
             {/* Fallback color if image is missing */}
             <div className="absolute inset-0 bg-[#071b4d] opacity-80 z-10" />
-            <img src={pest.heroImage} alt={pest.name} className="w-full h-full object-cover" />
+            <img src={pest.heroImage} alt={pest.name} className="w-full h-full object-cover object-center" />
           </div>
           <div className="relative z-20 text-center text-white max-w-3xl px-4">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">{pest.title}</h1>
