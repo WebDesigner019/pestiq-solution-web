@@ -229,9 +229,9 @@ export default function PlansPage() {
 
         {/* COMPARISON TABLE */}
         <section className="v3-section comparison-table-section">
-          <div className="v3-content">
+          <div className="v3-content overflow-x-auto">
             <h2>Compare plan features.</h2>
-            <div className="comparison-table">
+            <div className="comparison-table min-w-[600px]">
               <div className="table-row head">
                 <strong>Feature</strong>
                 <span>Essential</span>

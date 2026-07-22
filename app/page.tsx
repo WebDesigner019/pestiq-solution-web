@@ -261,15 +261,15 @@ export default function HomePage() {
               Here are some of the most common pests we protect against
             </h2>
             
-            <div className="flex flex-wrap justify-center mb-12 border-b border-gray-200">
+            <div className="flex overflow-x-auto justify-start sm:justify-center mb-12 border-b border-gray-200 scrollbar-none pb-2">
               {pestLibrary.map(pest => (
                 <button 
                   key={pest.name}
                   onClick={() => setActiveTab(pest.name)}
-                  className={`flex flex-col items-center p-4 transition-colors relative w-24 h-28 justify-center ${activeTab === pest.name ? "bg-[#f4f5f7] text-[#0a2540]" : "bg-white text-[#0a2540] hover:bg-gray-50"}`}
+                  className={`flex flex-col items-center p-3 sm:p-4 transition-colors relative min-w-[85px] sm:w-24 h-24 sm:h-28 justify-center shrink-0 ${activeTab === pest.name ? "bg-[#f4f5f7] text-[#0a2540]" : "bg-white text-[#0a2540] hover:bg-gray-50"}`}
                 >
                   <div className="mb-2 text-[#0a2540]">{pest.icon}</div>
-                  <span className="text-[13px] font-extrabold">{pest.name}</span>
+                  <span className="text-[12px] sm:text-[13px] font-extrabold whitespace-nowrap">{pest.name}</span>
                   {activeTab === pest.name && (
                     <span className="absolute bottom-0 w-full h-1 bg-[#1a7a3c]"></span>
                   )}

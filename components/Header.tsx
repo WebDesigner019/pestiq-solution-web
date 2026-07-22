@@ -81,29 +81,39 @@ export function Header() {
         </div>
 
         {/* Right: Icons */}
-        <div className="flex items-center space-x-6">
-          <a href="tel:2125550148" className="flex flex-col items-center text-gray-700 hover:text-[#071b4d]">
-            <Phone className="w-5 h-5 mb-1" />
-            <span className="text-xs font-semibold mt-1">Call</span>
+        <div className="flex items-center space-x-4 sm:space-x-6">
+          {/* Mobile Location Quick Button */}
+          <button 
+            onClick={() => setIsAddressModalOpen(true)}
+            className="md:hidden flex items-center gap-1 bg-gray-50 border border-gray-200 px-2.5 py-1.5 rounded text-[11px] font-bold text-[#071b4d]"
+          >
+            <MapPin className="w-3.5 h-3.5 text-[#1a7a3c]" />
+            <span className="truncate max-w-[80px]">{zipCode ? serviceArea.split(",")[0] : "Location"}</span>
+          </button>
+
+          <a href="tel:2125550148" className="hidden sm:flex flex-col items-center text-gray-700 hover:text-[#071b4d]">
+            <Phone className="w-5 h-5 mb-0.5" />
+            <span className="text-xs font-semibold">Call</span>
           </a>
           <Link href="/cart" className="flex flex-col items-center text-gray-700 hover:text-[#071b4d] relative">
-            <ShoppingCart className="w-5 h-5 mb-1" />
-            <span className="text-xs font-semibold mt-1">Cart</span>
+            <ShoppingCart className="w-5 h-5 mb-0.5" />
+            <span className="text-xs font-semibold">Cart</span>
             {cartItem !== null && (
               <span className="absolute -top-1 -right-2 bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
                 1
               </span>
             )}
           </Link>
-          <Link href="/account" className="flex flex-col items-center text-gray-700 hover:text-[#071b4d]">
-            <User className="w-5 h-5 mb-1" />
-            <span className="text-xs font-semibold mt-1">MyAccount</span>
+          <Link href="/portal" className="flex flex-col items-center text-gray-700 hover:text-[#071b4d]">
+            <User className="w-5 h-5 mb-0.5" />
+            <span className="text-xs font-semibold">Account</span>
           </Link>
 
           {/* Mobile menu button */}
           <button 
-            className="md:hidden flex flex-col items-center text-gray-700 p-2"
+            className="md:hidden flex items-center justify-center text-gray-700 p-1 rounded-lg border border-gray-200"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle mobile menu"
           >
             <Menu className="w-6 h-6" />
           </button>
