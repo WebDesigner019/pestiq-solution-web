@@ -18,95 +18,205 @@ const PEST_DATA: Record<string, any> = {
     bullets: ['Can contaminate food and surfaces.', 'Some species can cause structural damage.', 'Quickly build large, complex colonies.'],
     tabs: ['Residual Spray', 'Bait Stations', 'Perimeter Barrier', 'Colony Elimination']
   },
-  'cockroaches': {
-    name: 'Cockroach',
-    title: 'Cockroach control and prevention',
-    subtitle: 'Eliminate cockroaches and keep them out with our effective treatments.',
-    heroImage: '/images/cockroach.jpg',
-    covered: { essential: 25, complete: 39 },
-    description: 'Cockroaches are resilient pests that can spread disease and trigger allergies. They breed rapidly and are notoriously difficult to eliminate without professional pest control methods.',
-    bullets: ['Can trigger asthma and allergies.', 'Spread bacteria and diseases.', 'Extremely resilient and hard to eliminate.'],
-    tabs: ['Gel Bait', 'Residual Spray', 'IGR Treatment', 'Exclusion']
-  },
-  'rodents': {
-    name: 'Rodent',
-    title: 'Rodent control and exclusion',
-    subtitle: 'Keep your home safe from destructive and disease-carrying rodents.',
-    heroImage: '/images/rodent.jpg',
-    covered: { essential: 25, complete: 39 },
-    description: 'Rodents like rats and mice can cause significant structural damage to your home and pose serious health risks. Professional exclusion and monitoring are critical to keeping them out permanently.',
-    bullets: ['Cause structural damage by chewing.', 'Contaminate food and spread disease.', 'Multiply quickly if left unchecked.'],
-    tabs: ['Snap Traps', 'Glue Boards', 'Exclusion', 'Monitoring']
-  },
-  'spiders': {
-    name: 'Spider',
-    title: 'Spider control and prevention',
-    subtitle: 'Reduce spider populations in and around your home.',
+  'bats': {
+    name: 'Bat',
+    title: 'Humane bat control & exclusion',
+    subtitle: 'Protect your attic and chimney with professional, humane bat exclusion services.',
     heroImage: '/images/spider.jpg',
     covered: { essential: 25, complete: 39 },
-    description: 'While most spiders are harmless, some can be dangerous, and all can create unsightly webs. Our targeted treatments help reduce spider populations and prevent them from entering your living spaces.',
-    bullets: ['Create unsightly webs around the home.', 'Some species have dangerous bites.', 'Often indicate the presence of other pests.'],
-    tabs: ['Web Removal', 'Residual Spray', 'Perimeter Treatment', 'Habitat Reduction']
-  },
-  'mosquitoes': {
-    name: 'Mosquito',
-    title: 'Mosquito control and reduction',
-    subtitle: 'Enjoy your yard again with our targeted mosquito control solutions.',
-    heroImage: '/images/mosquito.jpg',
-    covered: { essential: 25, complete: 39 },
-    description: 'Mosquitoes are not only annoying but can also transmit serious diseases. Professional treatment targets resting areas and breeding grounds to significantly reduce mosquito populations around your property.',
-    bullets: ['Can transmit dangerous diseases.', 'Make outdoor spaces unusable.', 'Breed rapidly in standing water.'],
-    tabs: ['Inspection', 'Treatment', 'Prevention', 'Monitoring']
+    description: 'Bats can nest in attics, eaves, and wall cavities, posing health risks through guano accumulation. PestIQ uses one-way exclusion devices to safely remove bats and seal entry points.',
+    bullets: ['Prevent guano buildup and odor risks.', 'Humane one-way exclusion valves.', 'Comprehensive entry point sealing.'],
+    tabs: ['Attic Inspection', 'One-Way Exclusion', 'Entry Sealing', 'Sanitizing']
   },
   'bed-bugs': {
     name: 'Bed Bug',
-    title: 'Bed Bug extermination',
-    subtitle: 'Sleep soundly again with our comprehensive bed bug treatments.',
+    title: 'Bed bug extermination & treatment',
+    subtitle: 'Sleep soundly again with our comprehensive thermal & chemical bed bug solutions.',
     heroImage: '/images/bedroom.jpg',
     covered: { essential: 25, complete: 39 },
-    description: 'Bed bugs are parasitic insects that feed on human blood. They are masters at hiding and can easily spread throughout a home. Eradication requires a specialized, thorough professional approach.',
-    bullets: ['Cause itchy welts and sleep loss.', 'Hide in mattresses, furniture, and cracks.', 'Extremely difficult to treat with DIY methods.'],
-    tabs: ['Inspection', 'Treatment', 'Prevention', 'Monitoring']
+    description: 'Bed bugs hide deep in mattresses, headboards, and baseboards. Our targeted heat and residual treatments target bed bugs at all life stages, including eggs.',
+    bullets: ['Cause itchy welts and severe sleep loss.', 'Hide in microscopic cracks and upholstery.', 'Targeted treatments for complete eradication.'],
+    tabs: ['Thermal Heat', 'Targeted Chemical', 'Mattress Encasement', 'Follow-up Guarantee']
   },
-  'termites': {
-    name: 'Termite',
-    title: 'Termite protection and treatment',
-    subtitle: 'Protect your biggest investment from costly termite damage.',
+  'birds': {
+    name: 'Bird',
+    title: 'Commercial & residential bird control',
+    subtitle: 'Deter pest birds safely with netting, spikes, and humane repellent barriers.',
+    heroImage: '/images/suburban-houses.jpg',
+    covered: { essential: 25, complete: 39 },
+    description: 'Pigeons, sparrows, and starlings can damage roofs, gutters, and solar panels. We install discrete netting, gel repellents, and bird spikes to keep your property clean.',
+    bullets: ['Prevent corrosive bird droppings.', 'Protect solar panels, ledges, and roofs.', 'Humane deterrents and exclusion.'],
+    tabs: ['Anti-Roosting Spikes', 'Discreet Netting', 'Solar Panel Guards', 'Site Cleanup']
+  },
+  'carpenter-ants': {
+    name: 'Carpenter Ant',
+    title: 'Carpenter ant damage control',
+    subtitle: 'Stop wood-destroying carpenter ants before they compromise your home structure.',
     heroImage: '/images/ant-macro.jpg',
     covered: { essential: 25, complete: 39 },
-    description: 'Termites cause billions of dollars in structural damage every year. They silently consume wood from the inside out. Professional termite protection is essential for safeguarding your home.',
-    bullets: ['Cause severe structural damage.', 'Often go unnoticed until damage is done.', 'Require specialized baiting or liquid treatments.'],
-    tabs: ['Inspection', 'Treatment', 'Prevention', 'Monitoring']
+    description: 'Unlike termites, carpenter ants excavate wood to build galleries for their colonies. Our specialists locate parent and satellite nests to stop destruction.',
+    bullets: ['Excavate wooden beams and wall studs.', 'Form hidden satellite nests in moist wood.', 'Requires specialized perimeter & void baiting.'],
+    tabs: ['Void Injection', 'Perimeter Barrier', 'Nest Tracking', 'Moisture Inspection']
+  },
+  'centipedes-millipedes': {
+    name: 'Centipede & Millipede',
+    title: 'Centipede & millipede control',
+    subtitle: 'Keep multi-legged crawlers out of your basement, crawlspaces, and perimeter.',
+    heroImage: '/images/spider.jpg',
+    covered: { essential: 25, complete: 39 },
+    description: 'House centipedes and millipedes thrive in high-humidity areas like damp basements and crawlspaces. We treat moisture zones and seal foundation cracks.',
+    bullets: ['Drawn to high indoor humidity.', 'Indicative of underlying moisture issues.', 'Targeted perimeter granular barriers.'],
+    tabs: ['Granular Barrier', 'Crawlspace Treatment', 'Foundation Sealing', 'Dehumidification Advice']
+  },
+  'cockroaches': {
+    name: 'Cockroach',
+    title: 'Cockroach control & elimination',
+    subtitle: 'Eliminate German, American, and Oriental cockroaches with long-lasting baits.',
+    heroImage: '/images/cockroach.jpg',
+    covered: { essential: 25, complete: 39 },
+    description: 'Cockroaches are resilient pests that multiply rapidly and contaminate food prep areas. Our multi-stage treatment combines insect growth regulators (IGRs) and targeted gel baits.',
+    bullets: ['Spread harmful bacteria and trigger allergies.', 'Multiply rapidly in kitchens and bathrooms.', 'Dual-action IGR and bait placement.'],
+    tabs: ['Gel Baiting', 'IGR Application', 'Crack & Crevice Dusting', 'Sanitation Audit']
+  },
+  'crickets': {
+    name: 'Cricket',
+    title: 'Cricket control & noise relief',
+    subtitle: 'Stop annoying cricket chirping and protect fabric and wallpaper from damage.',
+    heroImage: '/images/ant-macro.jpg',
+    covered: { essential: 25, complete: 39 },
+    description: 'Camel crickets and field crickets invade dark, cool spaces during seasonal weather changes. We apply perimeter barriers and interior monitoring.',
+    bullets: ['Damage clothes, carpet, and curtains.', 'Attracted to damp basements and garages.', 'Targeted perimeter barrier application.'],
+    tabs: ['Perimeter Dusting', 'Glue Traps', 'Foundation Seal', 'Vegetation Clearing']
+  },
+  'fleas': {
+    name: 'Flea',
+    title: 'Flea extermination & yard protection',
+    subtitle: 'Eradicate persistent fleas from carpets, furniture, and outdoor pet areas.',
+    heroImage: '/images/mosquito.jpg',
+    covered: { essential: 25, complete: 39 },
+    description: 'Flea infestations quickly spread through carpet fibers and pet bedding. Our dual-action indoor and yard treatments break the flea life cycle instantly.',
+    bullets: ['Bite humans and pets relentlessly.', 'Eggs fall into carpets and floor cracks.', 'Adulticides + IGR for complete elimination.'],
+    tabs: ['Carpet Treatment', 'Upholstery Care', 'Yard Mist', 'Lifecycle IGR']
+  },
+  'flies': {
+    name: 'Fly',
+    title: 'House & drain fly management',
+    subtitle: 'Eliminate fruit flies, drain flies, and house flies with targeted bio-treatments.',
+    heroImage: '/images/mosquito.jpg',
+    covered: { essential: 25, complete: 39 },
+    description: 'Flies land on unsanitary surfaces and transfer pathogens to food areas. We utilize bio-enzymatic drain cleaners and light traps for total control.',
+    bullets: ['Contaminate food and cooking counters.', 'Breeds in plumbing drains and trash bins.', 'Bio-enzymatic drain treatment.'],
+    tabs: ['Drain Foam', 'Light Traps', 'Bait Stations', 'Source Removal']
   },
   'mice': {
     name: 'Mice',
-    title: 'Mice control and exclusion',
-    subtitle: 'Keep your home safe from destructive mice.',
+    title: 'Mice control & structural exclusion',
+    subtitle: 'Seal entry points and trap invading mice to keep your kitchen rodent-free.',
     heroImage: '/images/rodent.jpg',
     covered: { essential: 25, complete: 39 },
-    description: 'Mice can squeeze through surprisingly small openings to enter your home. They contaminate food and can chew through wires. Professional exclusion and trapping are needed for effective control.',
-    bullets: ['Squeeze through tiny openings.', 'Chew wires and cause fire hazards.', 'Contaminate food sources.'],
-    tabs: ['Snap Traps', 'Glue Boards', 'Exclusion', 'Monitoring']
+    description: 'Mice can fit through holes as small as a dime. PestIQ technicians conduct thorough inspections to identify and seal entryways while setting tamper-proof stations.',
+    bullets: ['Fits through dime-sized entry holes.', 'Chew electrical wires causing fire hazards.', 'Comprehensive exclusion sealing included.'],
+    tabs: ['Steel Mesh Exclusion', 'Tamper-Proof Stations', 'Sanitization', 'Monitoring']
+  },
+  'mosquitoes': {
+    name: 'Mosquito',
+    title: 'Mosquito control & yard misting',
+    subtitle: 'Enjoy your yard all summer with automated seasonal mosquito barrier mists.',
+    heroImage: '/images/mosquito.jpg',
+    covered: { essential: 25, complete: 39 },
+    description: 'Mosquitoes breed in standing water and rest under foliage. Our recurring outdoor treatments coat leaf undersides to eliminate mosquitoes on contact.',
+    bullets: ['Transmits West Nile & Zika viruses.', 'Targets foliage and shaded resting zones.', 'Eco-friendly barrier treatments.'],
+    tabs: ['Foliage Mist', 'Larvicide Placement', 'Gutter Inspection', 'Monthly Protection']
+  },
+  'moths': {
+    name: 'Moth',
+    title: 'Pantry & clothes moth treatment',
+    subtitle: 'Protect your wardrobes, carpets, and pantry items from moth larvae damage.',
+    heroImage: '/images/ant-macro.jpg',
+    covered: { essential: 25, complete: 39 },
+    description: 'Pantry moths infest dry grains, while clothes moths destroy wool and silk. We use pheromone monitoring traps and targeted micro-encapsulated treatments.',
+    bullets: ['Larvae eat natural fibers and wool.', 'Infest cereal, flour, and pet food.', 'Pheromone monitoring and targeted spray.'],
+    tabs: ['Pheromone Traps', 'Cabinet Cleaning', 'Targeted Treatment', 'Preventative Seal']
+  },
+  'rats': {
+    name: 'Rat',
+    title: 'Rat control & baiting systems',
+    subtitle: 'Eliminate Norway and roof rats with heavy-duty exclusion and baiting.',
+    heroImage: '/images/rodent.jpg',
+    covered: { essential: 25, complete: 39 },
+    description: 'Rats pose serious health risks and can gnaw through pipes and wiring. Our rat control plan incorporates heavy exclusion, exterior baiting, and interior trapping.',
+    bullets: ['Gnaw through wood, plastic, and soft metal.', 'Vector for serious bacterial diseases.', 'Heavy-duty tamper-proof bait boxes.'],
+    tabs: ['Exterior Rodent Stations', 'Structural Exclusion', 'Attic Trapping', 'Sanitation']
+  },
+  'rodents': {
+    name: 'Rodent',
+    title: 'Complete rodent control & exclusion',
+    subtitle: 'Keep your home safe from destructive mice and rats with full 365 protection.',
+    heroImage: '/images/rodent.jpg',
+    covered: { essential: 25, complete: 39 },
+    description: 'Integrated rat and mouse control designed for residential and commercial properties. We inspect crawlspaces, attics, and foundations.',
+    bullets: ['Covers all species of mice and rats.', 'Prevents food contamination and fire risks.', 'Includes 100% money-back guarantee.'],
+    tabs: ['Full Inspection', 'Foundation Sealing', 'Baiting & Trapping', 'Seasonal Checks']
+  },
+  'scorpions': {
+    name: 'Scorpion',
+    title: 'Scorpion exclusion & barrier spray',
+    subtitle: 'Prevent scorpions from creeping into shoes, bedding, and patio areas.',
+    heroImage: '/images/spider.jpg',
+    covered: { essential: 25, complete: 39 },
+    description: 'Scorpions enter homes seeking water and shade. We apply specialized micro-encapsulated perimeter barriers and conduct blacklight nocturnal audits.',
+    bullets: ['Painful stings, especially to children and pets.', 'Hides in dark cracks, boots, and palm trees.', 'Blacklight night inspection available.'],
+    tabs: ['Blacklight Audit', 'Perimeter Barrier', 'Weep Hole Screen', 'Harborage Removal']
+  },
+  'silverfish': {
+    name: 'Silverfish',
+    title: 'Silverfish control & humidity reduction',
+    subtitle: 'Stop silverfish from damaging books, documents, and linen closets.',
+    heroImage: '/images/ant-macro.jpg',
+    covered: { essential: 25, complete: 39 },
+    description: 'Silverfish consume starches, paper, and adhesive bindings. We apply long-lasting perimeter dusts and recommend humidity control tactics.',
+    bullets: ['Feeds on paper, book bindings, and starch.', 'Thrives in high indoor humidity.', 'Precision crack and crevice treatment.'],
+    tabs: ['Dusting Injections', 'Attic Treatment', 'Moisture Audit', 'Dehumidifier Tips']
+  },
+  'spiders': {
+    name: 'Spider',
+    title: 'Spider control & web removal',
+    subtitle: 'Clear away unsightly webs and keep dangerous spiders away from your family.',
+    heroImage: '/images/spider.jpg',
+    covered: { essential: 25, complete: 39 },
+    description: 'From common house spiders to black widows and brown recluses, our technician sweeps eaves and applies barrier sprays to curb spider prey.',
+    bullets: ['De-webbing service up to 2 stories.', 'Targets black widows and brown recluses.', 'Eliminates underlying insect prey.'],
+    tabs: ['Eave De-Webbing', 'Perimeter Spray', 'Window Sill Treatment', 'Basement Seal']
+  },
+  'stinging-pests': {
+    name: 'Stinging Pest',
+    title: 'Stinging pest nest removal',
+    subtitle: 'Protect your family from yellowjackets, hornets, bees, and wasps.',
+    heroImage: '/images/ant-macro.jpg',
+    covered: { essential: 25, complete: 39 },
+    description: 'Stinging insects built dangerous nests in roof eaves, soffits, and underground cavities. Our certified technicians safely neutralize and remove nests.',
+    bullets: ['Protects against painful allergic stings.', 'Safe removal of aerial and ground nests.', 'Preventative eave treatment.'],
+    tabs: ['Nest Neutralization', 'Safe Removal', 'Eave Treatment', 'Preventative Dust']
   },
   'ticks': {
     name: 'Tick',
-    title: 'Tick control and reduction',
-    subtitle: 'Protect your family and pets from tick-borne diseases.',
+    title: 'Tick reduction & lawn barrier',
+    subtitle: 'Keep your pets and kids safe from Lyme disease with yard tick sprays.',
     heroImage: '/images/mosquito.jpg',
     covered: { essential: 25, complete: 39 },
-    description: 'Ticks are known carriers of Lyme disease and other serious illnesses. Our treatments target the areas where ticks hide, reducing the risk of tick bites on your property.',
-    bullets: ['Transmit Lyme disease and other illnesses.', 'Hide in tall grass and wooded areas.', 'Pose risks to both humans and pets.'],
-    tabs: ['Inspection', 'Treatment', 'Prevention', 'Monitoring']
+    description: 'Ticks cling to tall grass and leaf litter waiting for hosts. We treat perimeter vegetation borders to stop ticks before they reach your lawn.',
+    bullets: ['Prevents Lyme disease and tick bites.', 'Focuses on woodlines and high grass.', 'Pet-friendly after drying.'],
+    tabs: ['Lawn Edge Mist', 'Leaf Litter Spray', 'Pet Safety Audit', 'Bi-Monthly Service']
   },
   'wasps': {
     name: 'Wasp',
-    title: 'Wasp and stinging insect control',
-    subtitle: 'Safely remove stinging insects from your property.',
+    title: 'Wasp nest extermination',
+    subtitle: 'Prompt wasp and hornet nest removal with guaranteed eave protection.',
     heroImage: '/images/ant-macro.jpg',
     covered: { essential: 25, complete: 39 },
-    description: 'Wasps, hornets, and yellow jackets can be aggressive and their stings are painful and potentially dangerous to those with allergies. Professional removal is crucial for safety.',
-    bullets: ['Can deliver painful, dangerous stings.', 'Build nests in eaves, attics, and trees.', 'Become aggressive when defending nests.'],
-    tabs: ['Inspection', 'Treatment', 'Prevention', 'Monitoring']
+    description: 'Wasps build paper nests under eaves, porch ceilings, and deck railings. PestIQ provides fast-response nest knockdown and lingering deterrents.',
+    bullets: ['Prevents aggressive swarm attacks.', 'Knocks down paper nests safely.', 'Applies invisible eave repellents.'],
+    tabs: ['Knockdown Pole', 'Aerosol Treatment', 'Eave Seal', 'Seasonal Guarantee']
   }
 };
 
@@ -136,11 +246,20 @@ export default function PestServicePage(props: { params: Promise<{ slug: string 
   const isAddressVerified = !!zipCode;
   
   let slug = params.slug;
-  if (!PEST_DATA[slug]) {
-    slug = 'ants'; // fallback
+  let pest = PEST_DATA[slug];
+  if (!pest) {
+    const formattedName = slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    pest = {
+      name: formattedName.replace(/ Control$/i, ''),
+      title: `${formattedName} & treatment`,
+      subtitle: `Protect your home from ${formattedName.toLowerCase()} with targeted extermination solutions.`,
+      heroImage: '/images/ant-macro.jpg',
+      covered: { essential: 25, complete: 39 },
+      description: `Professional ${formattedName.toLowerCase()} service customized for residential and commercial properties. Our certified technicians target harborages and implement long-lasting barriers.`,
+      bullets: ['Targeted perimeter application.', 'Safe for pets and family members.', 'Prevents recurring seasonal infestations.'],
+      tabs: ['Inspection', 'Targeted Treatment', 'Exclusion', 'Monitoring']
+    };
   }
-  
-  const pest = PEST_DATA[slug];
   const prices = getPrices(priceTier || 'nyc', propertySqFt || 2000);
 
   const handleAddToCart = (planId: "essential" | "complete" | "onetime", planName: string, monthlyPrice: string, initialFee: string, isSubscription: boolean) => {

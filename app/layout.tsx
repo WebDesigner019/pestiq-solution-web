@@ -17,7 +17,9 @@ export const metadata: Metadata = {
   title: "PestIQ Solutions | Professional NY & NJ Pest Control",
   description: "Residential pest control plans, estimates, and localized treatment options for New York City, Westchester, and Ocean County, NJ.",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
   }
 };
 

@@ -5,14 +5,25 @@ import Link from "next/link";
 
 export function Logo() {
   return (
-    <Link href="/" className="brand flex flex-col" aria-label="PestIQ Solutions home">
-      <span className="brand-word text-3xl font-black tracking-tight flex items-center">
-        <span style={{ color: "#071b4d" }}>PEST</span>
-        <span className="bg-[#ffc400] text-[#071b4d] ml-0.5 px-1 py-0.5 not-italic rounded-sm">IQ</span>
-      </span>
-      <small className="text-[#516075] tracking-[0.36em] uppercase mt-1 ml-1 text-[8px] font-extrabold block">
-        Solutions
-      </small>
+    <Link href="/" className="flex items-center gap-2.5 group" aria-label="PestIQ Home">
+      <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#0a2540] to-[#071b4d] flex items-center justify-center p-1.5 shadow-md border border-[#1a7a3c]/30 group-hover:scale-105 transition-transform">
+        <svg viewBox="0 0 512 512" className="w-full h-full">
+          <path d="M256 32 L432 96 V240 C432 352 344 448 256 480 C168 448 80 352 80 240 V96 Z" fill="#0a2540" />
+          <path d="M256 64 L396 116 V232 C396 324 324 406 256 434 C188 406 116 324 116 232 V116 Z" fill="none" stroke="#1a7a3c" strokeWidth="24" />
+          <path d="M256 140 C310 140 330 200 310 270 C290 340 256 370 256 370 C256 370 222 340 202 270 C182 200 202 140 256 140 Z" fill="#1a7a3c" />
+          <path d="M256 160 V340" stroke="#ffc400" strokeWidth="16" strokeLinecap="round" />
+          <circle cx="256" cy="230" r="22" fill="#ffc400" />
+        </svg>
+      </div>
+      <div className="flex flex-col">
+        <span className="text-2xl font-black tracking-tight leading-none flex items-center">
+          <span className="text-[#071b4d]">PEST</span>
+          <span className="text-[#1a7a3c] font-black">IQ</span>
+        </span>
+        <span className="text-[8px] font-extrabold tracking-[0.28em] text-gray-500 uppercase mt-0.5">
+          SOLUTIONS
+        </span>
+      </div>
     </Link>
   );
 }
