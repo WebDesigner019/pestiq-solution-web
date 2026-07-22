@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useLocation } from "@/context/LocationContext";
-import { UnserviceableAreaModal } from "@/components/UnserviceableAreaModal";
 import { MapPin, Phone, ShoppingCart, User, ChevronDown, Menu } from "lucide-react";
 export function Logo() {
   return (
@@ -218,9 +217,6 @@ export function Header() {
           <Link href="/offers" className="p-4 border-b border-gray-100 font-bold text-red-600">Exclusive Offers</Link>
         </div>
       )}
-
-      {/* Out of Service Area Email Capture Modal */}
-      <UnserviceableAreaModal />
     </header>
   );
 }
