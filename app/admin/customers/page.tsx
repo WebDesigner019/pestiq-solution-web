@@ -1,29 +1,29 @@
 "use client";
 
 import React, { useState } from "react";
-import { Search, MessageCircle, Phone, Mail, MapPin, FileText, ChevronRight, X, ArrowUpRight } from "lucide-react";
+import { Search, MessageCircle, Phone, Mail, MapPin, X, ArrowUpRight, ChevronRight } from "lucide-react";
 import { MOCK_CUSTOMERS, MOCK_BOOKINGS, type Customer } from "@/lib/adminMockData";
 
-const PLAN_STYLES: Record<string, { bg: string; text: string; dot: string }> = {
+const PLAN: Record<string, { bg:string; text:string; dot:string }> = {
   Complete:   { bg:"bg-blue-50",   text:"text-blue-700",   dot:"bg-blue-500"   },
   Essential:  { bg:"bg-violet-50", text:"text-violet-700", dot:"bg-violet-500" },
   "One-Time": { bg:"bg-orange-50", text:"text-orange-700", dot:"bg-orange-400" },
   None:       { bg:"bg-slate-100", text:"text-slate-500",  dot:"bg-slate-300"  },
 };
 
-const AVATAR_COLORS = [
-  "from-blue-600 to-indigo-600",
-  "from-violet-600 to-purple-600",
-  "from-emerald-600 to-teal-600",
-  "from-rose-500 to-pink-600",
-  "from-amber-500 to-orange-500",
-  "from-sky-500 to-cyan-600",
-  "from-fuchsia-500 to-purple-600",
-  "from-lime-500 to-emerald-500",
+const GRADIENTS = [
+  "linear-gradient(135deg,#1d4ed8,#3b82f6)",
+  "linear-gradient(135deg,#7c3aed,#a78bfa)",
+  "linear-gradient(135deg,#059669,#34d399)",
+  "linear-gradient(135deg,#dc2626,#f87171)",
+  "linear-gradient(135deg,#d97706,#fbbf24)",
+  "linear-gradient(135deg,#0284c7,#38bdf8)",
+  "linear-gradient(135deg,#c026d3,#e879f9)",
+  "linear-gradient(135deg,#16a34a,#86efac)",
 ];
 
 export default function AdminCustomersPage() {
-  const [search, setSearch]   = useState("");
+  const [search,   setSearch]   = useState("");
   const [selected, setSelected] = useState<Customer | null>(null);
 
   const filtered = MOCK_CUSTOMERS.filter(c => {
@@ -32,215 +32,213 @@ export default function AdminCustomersPage() {
       c.city.toLowerCase().includes(q) || c.zip.includes(q);
   });
 
-  const customerBookings = selected
-    ? MOCK_BOOKINGS.filter(b => b.customerName === selected.name)
-    : [];
-
+  const customerBookings = selected ? MOCK_BOOKINGS.filter(b => b.customerName === selected.name) : [];
   const topSpend = Math.max(...MOCK_CUSTOMERS.map(c => c.totalSpent), 1);
 
   return (
-    <div className="min-h-full bg-[#f8f9fb]">
-      {/* Top bar */}
-      <div className="bg-white border-b border-slate-200/80 px-8 py-5 flex items-center justify-between gap-4">
+    <div style={{ padding:"28px 32px", maxWidth:1200, margin:"0 auto" }}>
+
+      {/* Page heading + search */}
+      <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:20, gap:16, flexWrap:"wrap" }}>
         <div>
-          <h1 className="text-[#0c1a3a] text-xl font-black tracking-tight">Customers</h1>
-          <p className="text-slate-400 text-xs mt-0.5 font-medium">{filtered.length} records</p>
+          <h1 style={{ color:"#0c1a3a", fontSize:20, fontWeight:900, margin:0, letterSpacing:"-0.03em" }}>Customers</h1>
+          <p style={{ color:"#94a3b8", fontSize:13, margin:"4px 0 0", fontWeight:500 }}>{filtered.length} records</p>
         </div>
-        <div className="relative w-64">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
+        <div style={{ position:"relative", width:260 }}>
+          <Search style={{ position:"absolute", left:11, top:"50%", transform:"translateY(-50%)", width:14, height:14, color:"#94a3b8" }} />
           <input
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Search customers…"
-            className="w-full h-9 pl-9 pr-4 bg-slate-100 border border-transparent rounded-xl text-xs outline-none focus:bg-white focus:border-slate-200 focus:ring-2 focus:ring-[#1557b8]/10 transition-all"
+            style={{
+              width:"100%", height:36, paddingLeft:34, paddingRight:12,
+              background:"#fff", border:"1px solid #e2e8f0", borderRadius:9,
+              fontSize:13, outline:"none", color:"#0c1a3a", boxSizing:"border-box",
+            }}
           />
         </div>
       </div>
 
-      <div className="p-8 max-w-7xl mx-auto">
-        {/* Customer table — Linear/Stripe style list */}
-        <div className="bg-white rounded-2xl border border-slate-200/60 shadow-sm overflow-hidden">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-slate-100">
-                {["Customer", "Plan", "Bookings", "Total Spent", "Last Service", ""].map(h => (
-                  <th key={h||"action"} className="text-left text-[9px] font-black text-slate-400 uppercase tracking-[0.12em] px-6 py-3 bg-slate-50/50">
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100">
-              {filtered.map((c, i) => {
-                const plan = PLAN_STYLES[c.plan] ?? PLAN_STYLES.None;
-                const grad = AVATAR_COLORS[i % AVATAR_COLORS.length];
-                const spendPct = Math.round((c.totalSpent / topSpend) * 100);
-                return (
-                  <tr
-                    key={c.id}
-                    className="hover:bg-slate-50/60 transition-colors cursor-pointer group"
-                    onClick={() => setSelected(c)}
-                  >
-                    {/* Customer */}
-                    <td className="px-6 py-3.5">
-                      <div className="flex items-center gap-3">
-                        <div className={`w-8 h-8 rounded-full bg-gradient-to-br ${grad} flex items-center justify-center text-white text-[10px] font-black flex-shrink-0`}>
-                          {c.name.split(" ").map(n=>n[0]).join("").slice(0,2)}
-                        </div>
-                        <div>
-                          <p className="text-[#0c1a3a] text-xs font-bold">{c.name}</p>
-                          <p className="text-slate-400 text-[10px]">{c.email}</p>
-                        </div>
+      {/* Table */}
+      <div style={{ background:"#fff", borderRadius:14, border:"1px solid #f1f5f9", boxShadow:"0 1px 4px rgba(0,0,0,0.04)", overflow:"hidden" }}>
+        <table style={{ width:"100%", borderCollapse:"collapse" }}>
+          <thead>
+            <tr style={{ background:"#fafafa", borderBottom:"1px solid #f1f5f9" }}>
+              {["Customer","Plan","Bookings","Total Spent","Last Service",""].map(h => (
+                <th key={h||"arrow"} style={{
+                  textAlign:"left", padding:"10px 16px",
+                  fontSize:11, fontWeight:700, color:"#94a3b8",
+                  textTransform:"uppercase", letterSpacing:"0.08em", whiteSpace:"nowrap",
+                }}>
+                  {h}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {filtered.map((c, i) => {
+              const plan = PLAN[c.plan] ?? PLAN.None;
+              const grad = GRADIENTS[i % GRADIENTS.length];
+              const spendPct = Math.round((c.totalSpent / topSpend) * 100);
+              return (
+                <tr key={c.id}
+                  onClick={() => setSelected(c)}
+                  style={{ borderBottom:"1px solid #f8fafc", cursor:"pointer", transition:"background 0.1s" }}
+                  onMouseEnter={e => (e.currentTarget.style.background="#fafcff")}
+                  onMouseLeave={e => (e.currentTarget.style.background="transparent")}
+                >
+                  {/* Customer */}
+                  <td style={{ padding:"12px 16px" }}>
+                    <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+                      <div style={{
+                        width:32, height:32, borderRadius:"50%", background:grad,
+                        display:"flex", alignItems:"center", justifyContent:"center",
+                        color:"#fff", fontSize:11, fontWeight:900, flexShrink:0
+                      }}>
+                        {c.name.split(" ").map(n=>n[0]).join("").slice(0,2)}
                       </div>
-                    </td>
-                    {/* Plan */}
-                    <td className="px-6 py-3.5">
-                      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold ${plan.bg} ${plan.text}`}>
-                        <span className={`w-1.5 h-1.5 rounded-full ${plan.dot}`} />
-                        {c.plan}
-                      </span>
-                    </td>
-                    {/* Bookings */}
-                    <td className="px-6 py-3.5">
-                      <span className="text-[#0c1a3a] text-xs font-black">{c.totalBookings}</span>
-                    </td>
-                    {/* Spend with mini bar */}
-                    <td className="px-6 py-3.5 min-w-[120px]">
-                      <p className="text-[#0c1a3a] text-xs font-black mb-1">${c.totalSpent.toLocaleString()}</p>
-                      <div className="h-1 rounded-full bg-slate-100 w-20">
-                        <div className="h-1 rounded-full bg-[#1557b8]/40" style={{ width:`${spendPct}%` }} />
+                      <div>
+                        <p style={{ color:"#0c1a3a", fontSize:13, fontWeight:700, margin:0 }}>{c.name}</p>
+                        <p style={{ color:"#94a3b8", fontSize:12, margin:"2px 0 0" }}>{c.email}</p>
                       </div>
-                    </td>
-                    {/* Last Service */}
-                    <td className="px-6 py-3.5">
-                      <p className="text-slate-600 text-xs">
-                        {c.lastService === "—" ? <span className="text-slate-300">Never</span>
-                          : new Date(c.lastService).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"})}
-                      </p>
-                    </td>
-                    {/* Arrow */}
-                    <td className="px-6 py-3.5">
-                      <ChevronRight className="w-4 h-4 text-slate-200 group-hover:text-slate-400 transition-colors" />
-                    </td>
-                  </tr>
-                );
-              })}
-              {filtered.length === 0 && (
-                <tr><td colSpan={6} className="px-6 py-16 text-center text-slate-400 text-sm">No customers found.</td></tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+                    </div>
+                  </td>
+                  {/* Plan */}
+                  <td style={{ padding:"12px 16px" }}>
+                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[12px] font-bold ${plan.bg} ${plan.text}`}>
+                      <span className={`w-1.5 h-1.5 rounded-full ${plan.dot}`} />
+                      {c.plan}
+                    </span>
+                  </td>
+                  {/* Bookings */}
+                  <td style={{ padding:"12px 16px" }}>
+                    <span style={{ color:"#0c1a3a", fontSize:14, fontWeight:800 }}>{c.totalBookings}</span>
+                  </td>
+                  {/* Spend */}
+                  <td style={{ padding:"12px 16px", minWidth:130 }}>
+                    <p style={{ color:"#0c1a3a", fontSize:14, fontWeight:800, margin:"0 0 5px" }}>${c.totalSpent.toLocaleString()}</p>
+                    <div style={{ height:4, borderRadius:999, background:"#f1f5f9", width:80 }}>
+                      <div style={{ height:"100%", borderRadius:999, background:"#1557b8", opacity:0.35, width:`${spendPct}%` }} />
+                    </div>
+                  </td>
+                  {/* Last service */}
+                  <td style={{ padding:"12px 16px" }}>
+                    <span style={{ color: c.lastService==="—" ? "#cbd5e1" : "#475569", fontSize:13, fontWeight:500 }}>
+                      {c.lastService==="—" ? "Never" : new Date(c.lastService).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"})}
+                    </span>
+                  </td>
+                  {/* Arrow */}
+                  <td style={{ padding:"12px 16px" }}>
+                    <ChevronRight style={{ width:14, height:14, color:"#d1d5db" }} />
+                  </td>
+                </tr>
+              );
+            })}
+            {filtered.length===0 && (
+              <tr><td colSpan={6} style={{ padding:"48px 16px", textAlign:"center", color:"#94a3b8", fontSize:13 }}>No customers found.</td></tr>
+            )}
+          </tbody>
+        </table>
       </div>
 
-      {/* ── Detail Drawer ── */}
+      {/* Detail Drawer */}
       {selected && (() => {
-        const idx = MOCK_CUSTOMERS.findIndex(c => c.id === selected.id);
-        const grad = AVATAR_COLORS[idx % AVATAR_COLORS.length];
-        const plan = PLAN_STYLES[selected.plan] ?? PLAN_STYLES.None;
+        const idx  = MOCK_CUSTOMERS.findIndex(c=>c.id===selected.id);
+        const grad = GRADIENTS[idx % GRADIENTS.length];
+        const plan = PLAN[selected.plan] ?? PLAN.None;
         return (
-          <div className="fixed inset-0 z-50 flex">
-            <div className="flex-1 bg-black/40 backdrop-blur-[2px]" onClick={() => setSelected(null)} />
-            <div className="w-full max-w-[420px] bg-white flex flex-col shadow-2xl">
+          <div style={{ position:"fixed", inset:0, zIndex:50, display:"flex" }}>
+            <div style={{ flex:1, background:"rgba(0,0,0,0.4)", backdropFilter:"blur(2px)" }} onClick={()=>setSelected(null)} />
+            <div style={{ width:"100%", maxWidth:420, background:"#fff", display:"flex", flexDirection:"column", boxShadow:"0 25px 50px rgba(0,0,0,0.2)" }}>
               {/* Header */}
-              <div className="px-6 py-5 border-b border-slate-100">
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className={`w-11 h-11 rounded-full bg-gradient-to-br ${grad} flex items-center justify-center text-white text-sm font-black flex-shrink-0`}>
+              <div style={{ padding:"20px 24px", borderBottom:"1px solid #f1f5f9" }}>
+                <div style={{ display:"flex", alignItems:"flex-start", justifyContent:"space-between" }}>
+                  <div style={{ display:"flex", alignItems:"center", gap:12 }}>
+                    <div style={{ width:40, height:40, borderRadius:"50%", background:grad, display:"flex", alignItems:"center", justifyContent:"center", color:"#fff", fontSize:13, fontWeight:900 }}>
                       {selected.name.split(" ").map(n=>n[0]).join("").slice(0,2)}
                     </div>
                     <div>
-                      <h2 className="text-[#0c1a3a] font-black text-base leading-tight">{selected.name}</h2>
-                      <p className="text-slate-400 text-[11px] mt-0.5">{selected.id}</p>
+                      <h2 style={{ color:"#0c1a3a", fontSize:16, fontWeight:900, margin:0 }}>{selected.name}</h2>
+                      <p style={{ color:"#94a3b8", fontSize:12, margin:"3px 0 0" }}>{selected.id}</p>
                     </div>
                   </div>
-                  <button onClick={() => setSelected(null)} className="text-slate-300 hover:text-slate-600">
-                    <X className="w-5 h-5" />
+                  <button onClick={()=>setSelected(null)} style={{ background:"none", border:"none", cursor:"pointer", color:"#94a3b8" }}>
+                    <X style={{ width:18, height:18 }} />
                   </button>
                 </div>
-                <div className="flex items-center gap-2 mt-3">
-                  <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold ${plan.bg} ${plan.text}`}>
-                    <span className={`w-1.5 h-1.5 rounded-full ${plan.dot}`} />
-                    {selected.plan} Plan
+                <div style={{ display:"flex", alignItems:"center", gap:8, marginTop:14 }}>
+                  <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[12px] font-bold ${plan.bg} ${plan.text}`}>
+                    <span className={`w-1.5 h-1.5 rounded-full ${plan.dot}`} />{selected.plan} Plan
                   </span>
-                  <span className="text-slate-400 text-[10px]">
+                  <span style={{ color:"#94a3b8", fontSize:12 }}>
                     Since {new Date(selected.joinedDate).toLocaleDateString("en-US",{month:"short",year:"numeric"})}
                   </span>
                 </div>
               </div>
 
-              <div className="flex-1 overflow-y-auto px-6 py-5 space-y-6">
-                {/* Stats grid */}
-                <div className="grid grid-cols-2 gap-3">
+              <div style={{ flex:1, overflowY:"auto", padding:"20px 24px" }}>
+                {/* Stats */}
+                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10, marginBottom:24 }}>
                   {[
-                    { label:"Bookings", value: selected.totalBookings },
-                    { label:"Total Spent", value: `$${selected.totalSpent.toLocaleString()}` },
+                    { label:"Total Bookings", value:selected.totalBookings },
+                    { label:"Total Spent",    value:`$${selected.totalSpent.toLocaleString()}` },
                   ].map(({ label, value }) => (
-                    <div key={label} className="bg-slate-50 rounded-xl p-3.5">
-                      <p className="text-slate-400 text-[10px] font-semibold">{label}</p>
-                      <p className="text-[#0c1a3a] text-lg font-black mt-0.5">{value}</p>
+                    <div key={label} style={{ background:"#fafafa", borderRadius:10, padding:14 }}>
+                      <p style={{ color:"#94a3b8", fontSize:12, fontWeight:600, margin:"0 0 6px" }}>{label}</p>
+                      <p style={{ color:"#0c1a3a", fontSize:20, fontWeight:900, margin:0 }}>{value}</p>
                     </div>
                   ))}
                 </div>
 
                 {/* Contact */}
-                <div>
-                  <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2">Contact</p>
-                  <div className="space-y-2">
-                    {[
-                      { icon:Phone, v:selected.phone, href:`tel:${selected.phone}` },
-                      { icon:Mail,  v:selected.email, href:`mailto:${selected.email}` },
-                      { icon:MapPin,v:`${selected.address}, ${selected.city}, ${selected.state} ${selected.zip}`,
-                        href:`https://maps.google.com/?q=${encodeURIComponent(selected.address+" "+selected.city)}` },
-                    ].map(({ icon:Icon, v, href }) => (
-                      <a key={href} href={href} target="_blank" rel="noopener noreferrer"
-                        className="flex items-start gap-3 text-xs text-[#1557b8] hover:underline group">
-                        <Icon className="w-3.5 h-3.5 mt-0.5 text-slate-300 flex-shrink-0" />
-                        <span>{v}</span>
-                        <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 mt-0.5 flex-shrink-0 transition-opacity" />
-                      </a>
+                <p style={{ fontSize:11, fontWeight:800, textTransform:"uppercase", letterSpacing:"0.15em", color:"#94a3b8", marginBottom:10 }}>Contact</p>
+                <div style={{ display:"flex", flexDirection:"column", gap:8, marginBottom:24 }}>
+                  {[
+                    { icon:Phone, v:selected.phone, href:`tel:${selected.phone}` },
+                    { icon:Mail,  v:selected.email, href:`mailto:${selected.email}` },
+                    { icon:MapPin,v:`${selected.address}, ${selected.city}, ${selected.state} ${selected.zip}`,
+                      href:`https://maps.google.com/?q=${encodeURIComponent(selected.address+" "+selected.city)}` },
+                  ].map(({ icon:Icon, v, href }) => (
+                    <a key={href} href={href} target="_blank" rel="noopener noreferrer"
+                      style={{ display:"flex", alignItems:"flex-start", gap:10, fontSize:13, color:"#1557b8", textDecoration:"none" }}>
+                      <Icon style={{ width:14, height:14, marginTop:1, color:"#94a3b8", flexShrink:0 }} />
+                      {v}
+                      <ArrowUpRight style={{ width:12, height:12, marginTop:1, flexShrink:0 }} />
+                    </a>
+                  ))}
+                </div>
+
+                {/* History */}
+                <p style={{ fontSize:11, fontWeight:800, textTransform:"uppercase", letterSpacing:"0.15em", color:"#94a3b8", marginBottom:10 }}>
+                  Service History ({customerBookings.length})
+                </p>
+                {customerBookings.length===0 ? (
+                  <p style={{ color:"#94a3b8", fontSize:13 }}>No services yet.</p>
+                ) : (
+                  <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
+                    {customerBookings.map(b => (
+                      <div key={b.id} style={{ display:"flex", alignItems:"center", gap:10, background:"#fafafa", borderRadius:9, padding:"10px 12px" }}>
+                        <div style={{ flex:1, minWidth:0 }}>
+                          <p style={{ color:"#0c1a3a", fontSize:13, fontWeight:700, margin:0 }}>{b.service}</p>
+                          <p style={{ color:"#94a3b8", fontSize:12, margin:"2px 0 0" }}>
+                            {new Date(b.scheduledDate).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"})} · ${b.price}
+                          </p>
+                        </div>
+                        <span style={{
+                          fontSize:11, fontWeight:700, padding:"3px 8px", borderRadius:999, textTransform:"capitalize",
+                          background: b.status==="completed"?"#ecfdf5":b.status==="confirmed"?"#eff6ff":b.status==="pending"?"#fffbeb":"#fef2f2",
+                          color: b.status==="completed"?"#065f46":b.status==="confirmed"?"#1d4ed8":b.status==="pending"?"#92400e":"#b91c1c",
+                        }}>{b.status}</span>
+                      </div>
                     ))}
                   </div>
-                </div>
-
-                {/* Service history */}
-                <div>
-                  <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2">Service History ({customerBookings.length})</p>
-                  {customerBookings.length === 0 ? (
-                    <p className="text-slate-400 text-xs">No services yet.</p>
-                  ) : (
-                    <div className="space-y-2">
-                      {customerBookings.map(b => (
-                        <div key={b.id} className="flex items-center gap-3 bg-slate-50 rounded-xl p-3">
-                          <div className="flex-1 min-w-0">
-                            <p className="text-[#0c1a3a] text-xs font-bold truncate">{b.service}</p>
-                            <p className="text-slate-400 text-[10px]">
-                              {new Date(b.scheduledDate).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"})} · ${b.price}
-                            </p>
-                          </div>
-                          <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${
-                            b.status==="completed"?"bg-emerald-50 text-emerald-700":
-                            b.status==="confirmed"?"bg-blue-50 text-blue-700":
-                            b.status==="pending"?"bg-amber-50 text-amber-700":"bg-red-50 text-red-700"
-                          } capitalize`}>
-                            {b.status}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                )}
               </div>
 
-              {/* Footer: WhatsApp */}
-              <div className="px-6 py-4 border-t border-slate-100">
-                <a
-                  href={`https://wa.me/${selected.phone.replace(/\D/g,"")}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2.5 w-full h-11 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-bold transition-colors shadow-lg shadow-emerald-500/25"
-                >
-                  <MessageCircle className="w-4 h-4" />
+              <div style={{ padding:"16px 24px", borderTop:"1px solid #f1f5f9" }}>
+                <a href={`https://wa.me/${selected.phone.replace(/\D/g,"")}`} target="_blank" rel="noopener noreferrer"
+                  style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:10, height:44, background:"#16a34a", color:"#fff", borderRadius:10, fontSize:14, fontWeight:700, textDecoration:"none" }}>
+                  <MessageCircle style={{ width:15, height:15 }} />
                   Message on WhatsApp
                 </a>
               </div>

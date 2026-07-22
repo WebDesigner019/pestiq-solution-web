@@ -5,14 +5,13 @@ import { ChevronLeft, ChevronRight, MessageCircle, X } from "lucide-react";
 import { MOCK_BOOKINGS, type Booking, type BookingStatus } from "@/lib/adminMockData";
 
 const DAYS   = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-const MONTHS = ["January","February","March","April","May","June",
-                "July","August","September","October","November","December"];
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
-const STATUS_META: Record<BookingStatus, { dot: string; bg: string; text: string; pill: string }> = {
-  pending:   { dot:"bg-amber-400",   bg:"bg-amber-50",   text:"text-amber-700",   pill:"bg-amber-400"   },
-  confirmed: { dot:"bg-blue-500",    bg:"bg-blue-50",    text:"text-blue-700",    pill:"bg-blue-500"    },
-  completed: { dot:"bg-emerald-500", bg:"bg-emerald-50", text:"text-emerald-700", pill:"bg-emerald-500" },
-  cancelled: { dot:"bg-red-400",     bg:"bg-red-50",     text:"text-red-700",     pill:"bg-red-400"     },
+const S: Record<BookingStatus, { dot:string; bg:string; text:string }> = {
+  pending:   { dot:"bg-amber-400",   bg:"bg-amber-50",   text:"text-amber-800"   },
+  confirmed: { dot:"bg-blue-500",    bg:"bg-blue-50",    text:"text-blue-800"    },
+  completed: { dot:"bg-emerald-500", bg:"bg-emerald-50", text:"text-emerald-800" },
+  cancelled: { dot:"bg-red-400",     bg:"bg-red-50",     text:"text-red-800"     },
 };
 
 function buildWA(b: Booking) {
@@ -26,16 +25,27 @@ function buildWA(b: Booking) {
   return `https://wa.me/?text=${encodeURIComponent(msg)}`;
 }
 
+const GRADIENTS = [
+  "linear-gradient(135deg,#1d4ed8,#3b82f6)",
+  "linear-gradient(135deg,#7c3aed,#a78bfa)",
+  "linear-gradient(135deg,#059669,#34d399)",
+  "linear-gradient(135deg,#dc2626,#f87171)",
+  "linear-gradient(135deg,#d97706,#fbbf24)",
+  "linear-gradient(135deg,#0284c7,#38bdf8)",
+  "linear-gradient(135deg,#c026d3,#e879f9)",
+  "linear-gradient(135deg,#16a34a,#86efac)",
+];
+
 export default function AdminCalendarPage() {
   const today  = new Date();
-  const [view, setView]   = useState(new Date(today.getFullYear(), today.getMonth(), 1));
-  const [day, setDay]     = useState<number>(today.getDate());
+  const [view,  setView]  = useState(new Date(today.getFullYear(), today.getMonth(), 1));
+  const [day,   setDay]   = useState<number>(today.getDate());
   const [modal, setModal] = useState<Booking | null>(null);
 
-  const year  = view.getFullYear();
-  const month = view.getMonth();
-  const firstDay    = new Date(year, month, 1).getDay();
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const year      = view.getFullYear();
+  const month     = view.getMonth();
+  const firstDay  = new Date(year, month, 1).getDay();
+  const daysCount = new Date(year, month + 1, 0).getDate();
 
   const bookingsOnDay = (d: number) => {
     const ds = `${year}-${String(month+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
@@ -43,223 +53,197 @@ export default function AdminCalendarPage() {
   };
 
   const selectedBookings = day ? bookingsOnDay(day) : [];
-  const totalThisMonth   = MOCK_BOOKINGS.filter(b =>
+  const totalThisMonth = MOCK_BOOKINGS.filter(b =>
     b.scheduledDate.startsWith(`${year}-${String(month+1).padStart(2,"0")}`)
   ).length;
 
+  const bookingIdx = (name: string) => MOCK_BOOKINGS.findIndex(b => b.customerName === name) % GRADIENTS.length;
+
   return (
-    <div className="min-h-full bg-[#f8f9fb]">
-      {/* Top bar */}
-      <div className="bg-white border-b border-slate-200/80 px-8 py-5 flex items-center justify-between">
-        <div>
-          <h1 className="text-[#0c1a3a] text-xl font-black tracking-tight">Calendar</h1>
-          <p className="text-slate-400 text-xs mt-0.5 font-medium">{totalThisMonth} appointment{totalThisMonth!==1?"s":""} in {MONTHS[month]}</p>
-        </div>
-        {/* Legend */}
-        <div className="hidden sm:flex items-center gap-4">
-          {(["pending","confirmed","completed","cancelled"] as BookingStatus[]).map(s => (
-            <div key={s} className="flex items-center gap-1.5">
-              <span className={`w-2 h-2 rounded-full ${STATUS_META[s].dot}`} />
-              <span className="text-slate-500 text-[10px] font-semibold capitalize">{s}</span>
-            </div>
-          ))}
-        </div>
+    <div style={{ padding:"28px 32px", maxWidth:1200, margin:"0 auto" }}>
+
+      {/* Page heading */}
+      <div style={{ marginBottom:24 }}>
+        <h1 style={{ color:"#0c1a3a", fontSize:20, fontWeight:900, margin:0, letterSpacing:"-0.03em" }}>Calendar</h1>
+        <p style={{ color:"#94a3b8", fontSize:13, margin:"4px 0 0", fontWeight:500 }}>
+          {totalThisMonth} appointment{totalThisMonth!==1?"s":""} in {MONTHS[month]}
+        </p>
       </div>
 
-      <div className="p-8 max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-3 gap-5">
+      {/* Legend */}
+      <div style={{ display:"flex", alignItems:"center", gap:16, marginBottom:20 }}>
+        {(["pending","confirmed","completed","cancelled"] as BookingStatus[]).map(s => (
+          <div key={s} style={{ display:"flex", alignItems:"center", gap:5 }}>
+            <span className={`w-2 h-2 rounded-full ${S[s].dot}`} />
+            <span style={{ color:"#64748b", fontSize:12, fontWeight:600, textTransform:"capitalize" }}>{s}</span>
+          </div>
+        ))}
+      </div>
 
-          {/* ── Calendar grid ── */}
-          <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200/60 shadow-sm overflow-hidden">
-            {/* Month nav */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
-              <button
-                onClick={() => setView(new Date(year, month-1, 1))}
-                className="w-8 h-8 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:bg-slate-50 transition-colors"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <div className="text-center">
-                <p className="text-[#0c1a3a] font-black text-base">{MONTHS[month]}</p>
-                <p className="text-slate-400 text-xs">{year}</p>
+      <div style={{ display:"grid", gridTemplateColumns:"1fr 320px", gap:16 }}>
+
+        {/* Calendar grid */}
+        <div style={{ background:"#fff", borderRadius:14, border:"1px solid #f1f5f9", boxShadow:"0 1px 4px rgba(0,0,0,0.04)", overflow:"hidden" }}>
+
+          {/* Month nav */}
+          <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", padding:"16px 20px", borderBottom:"1px solid #f8fafc" }}>
+            <button
+              onClick={() => setView(new Date(year, month-1, 1))}
+              style={{ width:32, height:32, borderRadius:8, border:"1px solid #e2e8f0", background:"none", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", color:"#64748b" }}
+            >
+              <ChevronLeft style={{ width:15, height:15 }} />
+            </button>
+            <div style={{ textAlign:"center" }}>
+              <p style={{ color:"#0c1a3a", fontSize:15, fontWeight:800, margin:0 }}>{MONTHS[month]}</p>
+              <p style={{ color:"#94a3b8", fontSize:12, margin:"2px 0 0" }}>{year}</p>
+            </div>
+            <button
+              onClick={() => setView(new Date(year, month+1, 1))}
+              style={{ width:32, height:32, borderRadius:8, border:"1px solid #e2e8f0", background:"none", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", color:"#64748b" }}
+            >
+              <ChevronRight style={{ width:15, height:15 }} />
+            </button>
+          </div>
+
+          {/* Day headers */}
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(7,1fr)", borderBottom:"1px solid #f1f5f9", background:"#fafafa" }}>
+            {DAYS.map(d => (
+              <div key={d} style={{ padding:"8px 0", textAlign:"center", fontSize:11, fontWeight:700, color:"#94a3b8", textTransform:"uppercase", letterSpacing:"0.08em" }}>
+                {d}
               </div>
-              <button
-                onClick={() => setView(new Date(year, month+1, 1))}
-                className="w-8 h-8 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:bg-slate-50 transition-colors"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
+            ))}
+          </div>
+
+          {/* Day cells */}
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(7,1fr)" }}>
+            {Array.from({ length: firstDay }).map((_,i) => (
+              <div key={`e${i}`} style={{ minHeight:80, borderRight:"1px solid #f8fafc", borderBottom:"1px solid #f8fafc", background:"#fafafa" }} />
+            ))}
+
+            {Array.from({ length: daysCount }).map((_,i) => {
+              const d = i + 1;
+              const isToday = today.getFullYear()===year && today.getMonth()===month && today.getDate()===d;
+              const isSel   = day===d;
+              const bks     = bookingsOnDay(d);
+
+              return (
+                <button
+                  key={d}
+                  onClick={() => setDay(d)}
+                  style={{
+                    minHeight:80, border:"none",
+                    borderRight:"1px solid #f8fafc", borderBottom:"1px solid #f8fafc",
+                    padding:"8px 6px", textAlign:"left", cursor:"pointer",
+                    background: isSel ? "#f0f7ff" : "white",
+                    outline: isSel ? "1px solid #bfdbfe" : "none",
+                    transition:"background 0.1s",
+                  }}
+                >
+                  <span style={{
+                    display:"inline-flex", width:24, height:24, alignItems:"center", justifyContent:"center",
+                    borderRadius:"50%", fontSize:12, fontWeight:700, marginBottom:4,
+                    background: isToday ? "#FACC15" : "none",
+                    color: isToday ? "#071b4d" : isSel ? "#1557b8" : bks.length > 0 ? "#0c1a3a" : "#94a3b8",
+                  }}>
+                    {d}
+                  </span>
+                  <div style={{ display:"flex", flexDirection:"column", gap:2 }}>
+                    {bks.slice(0,2).map(b => (
+                      <div key={b.id} className={`${S[b.status].bg} ${S[b.status].text}`}
+                        style={{ borderRadius:4, padding:"2px 5px", fontSize:10, fontWeight:700, overflow:"hidden", whiteSpace:"nowrap", textOverflow:"ellipsis" }}>
+                        {b.customerName.split(" ")[0]}
+                      </div>
+                    ))}
+                    {bks.length > 2 && (
+                      <span style={{ fontSize:10, color:"#94a3b8", fontWeight:700, padding:"0 4px" }}>+{bks.length-2}</span>
+                    )}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Day detail */}
+        <div style={{ background:"#fff", borderRadius:14, border:"1px solid #f1f5f9", boxShadow:"0 1px 4px rgba(0,0,0,0.04)", overflow:"hidden", height:"fit-content" }}>
+          <div style={{ padding:"14px 18px", borderBottom:"1px solid #f8fafc", background:"#fafafa" }}>
+            <p style={{ color:"#0c1a3a", fontSize:14, fontWeight:800, margin:0 }}>
+              {day ? `${MONTHS[month]} ${day}` : "Select a day"}
+            </p>
+            <p style={{ color:"#94a3b8", fontSize:12, margin:"3px 0 0", fontWeight:500 }}>
+              {selectedBookings.length===0 ? "No appointments" : `${selectedBookings.length} appointment${selectedBookings.length>1?"s":""}`}
+            </p>
+          </div>
+
+          {selectedBookings.length===0 ? (
+            <div style={{ padding:"48px 18px", textAlign:"center" }}>
+              <div style={{ fontSize:32, marginBottom:8 }}>📅</div>
+              <p style={{ color:"#94a3b8", fontSize:13, fontWeight:600, margin:0 }}>No appointments</p>
+              <p style={{ color:"#cbd5e1", fontSize:12, margin:"4px 0 0" }}>Click a highlighted day</p>
             </div>
-
-            {/* Day headers */}
-            <div className="grid grid-cols-7 border-b border-slate-100">
-              {DAYS.map(d => (
-                <div key={d} className="py-2.5 text-center text-[9px] font-black text-slate-400 uppercase tracking-widest bg-slate-50/50">
-                  {d}
-                </div>
-              ))}
-            </div>
-
-            {/* Cells */}
-            <div className="grid grid-cols-7">
-              {Array.from({ length: firstDay }).map((_,i) => (
-                <div key={`e${i}`} className="min-h-[80px] border-r border-b border-slate-100 bg-slate-50/30" />
-              ))}
-
-              {Array.from({ length: daysInMonth }).map((_,i) => {
-                const d = i + 1;
-                const isToday  = today.getFullYear()===year && today.getMonth()===month && today.getDate()===d;
-                const isSel    = day === d;
-                const bks      = bookingsOnDay(d);
-                const hasAppts = bks.length > 0;
-
+          ) : (
+            <div>
+              {selectedBookings.map(b => {
+                const m = S[b.status];
+                const gi = bookingIdx(b.customerName);
                 return (
-                  <button
-                    key={d}
-                    onClick={() => setDay(d)}
-                    className={`min-h-[80px] border-r border-b border-slate-100 p-2 text-left transition-all hover:bg-slate-50 ${
-                      isSel ? "bg-[#0c1a3a]/[0.04] ring-inset ring-1 ring-[#1557b8]/20" : ""
-                    }`}
-                  >
-                    {/* Day number */}
-                    <span className={`inline-flex w-6 h-6 items-center justify-center rounded-full text-xs font-black mb-1.5 ${
-                      isToday  ? "bg-yellow-400 text-[#0c1a3a]" :
-                      isSel    ? "bg-[#0c1a3a] text-white" :
-                      hasAppts ? "text-[#0c1a3a]" : "text-slate-400"
-                    }`}>
-                      {d}
-                    </span>
-
-                    {/* Appointment pills */}
-                    <div className="space-y-0.5">
-                      {bks.slice(0,2).map(b => (
-                        <div
-                          key={b.id}
-                          className={`flex items-center gap-1 rounded text-[8px] font-bold px-1.5 py-0.5 truncate ${STATUS_META[b.status].bg} ${STATUS_META[b.status].text}`}
-                          title={`${b.customerName} — ${b.service}`}
-                        >
-                          <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${STATUS_META[b.status].dot}`} />
-                          {b.customerName.split(" ")[0]}
-                        </div>
-                      ))}
-                      {bks.length > 2 && (
-                        <p className="text-[8px] text-slate-400 font-bold px-1">+{bks.length - 2} more</p>
-                      )}
+                  <div key={b.id} style={{ padding:"14px 18px", borderBottom:"1px solid #f8fafc" }}>
+                    <div style={{ display:"flex", alignItems:"flex-start", gap:10, marginBottom:8 }}>
+                      <div style={{ width:30, height:30, borderRadius:"50%", background:GRADIENTS[gi], display:"flex", alignItems:"center", justifyContent:"center", color:"#fff", fontSize:10, fontWeight:900, flexShrink:0 }}>
+                        {b.customerName.split(" ").map(n=>n[0]).join("").slice(0,2)}
+                      </div>
+                      <div style={{ flex:1 }}>
+                        <p style={{ color:"#0c1a3a", fontSize:13, fontWeight:700, margin:0 }}>{b.customerName}</p>
+                        <p style={{ color:"#94a3b8", fontSize:12, margin:"2px 0 0" }}>{b.scheduledTime}</p>
+                      </div>
+                      <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold ${m.bg} ${m.text}`}>
+                        <span className={`w-1.5 h-1.5 rounded-full ${m.dot}`} />
+                        {b.status}
+                      </span>
                     </div>
-                  </button>
+                    <p style={{ color:"#475569", fontSize:13, fontWeight:500, margin:"0 0 2px" }}>{b.service}</p>
+                    <p style={{ color:"#94a3b8", fontSize:12, margin:"0 0 10px", overflow:"hidden", whiteSpace:"nowrap", textOverflow:"ellipsis" }}>{b.address}, {b.city}</p>
+                    <div style={{ display:"flex", gap:8 }}>
+                      <button onClick={()=>setModal(b)}
+                        style={{ flex:1, height:30, border:"1px solid #bfdbfe", background:"#eff6ff", color:"#1d4ed8", borderRadius:7, fontSize:12, fontWeight:700, cursor:"pointer" }}>
+                        View Details
+                      </button>
+                      <a href={buildWA(b)} target="_blank" rel="noopener noreferrer"
+                        style={{ width:30, height:30, borderRadius:7, background:"#f0fdf4", display:"flex", alignItems:"center", justifyContent:"center", textDecoration:"none" }}>
+                        <MessageCircle style={{ width:13, height:13, color:"#16a34a" }} />
+                      </a>
+                    </div>
+                  </div>
                 );
               })}
             </div>
-          </div>
-
-          {/* ── Day detail ── */}
-          <div className="bg-white rounded-2xl border border-slate-200/60 shadow-sm overflow-hidden h-fit">
-            <div className="px-5 py-4 border-b border-slate-100 bg-slate-50/50">
-              <p className="text-[#0c1a3a] font-black text-sm">
-                {day ? `${MONTHS[month]} ${day}, ${year}` : "Select a day"}
-              </p>
-              <p className="text-slate-400 text-[10px] mt-0.5 font-medium">
-                {selectedBookings.length === 0 ? "No appointments" : `${selectedBookings.length} appointment${selectedBookings.length > 1 ? "s" : ""}`}
-              </p>
-            </div>
-
-            {selectedBookings.length === 0 ? (
-              <div className="py-14 px-5 text-center">
-                <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-3">
-                  <span className="text-2xl">📅</span>
-                </div>
-                <p className="text-slate-500 text-xs font-semibold">No appointments</p>
-                <p className="text-slate-300 text-[11px] mt-1">Click a highlighted day</p>
-              </div>
-            ) : (
-              <div className="divide-y divide-slate-100">
-                {selectedBookings.map(b => {
-                  const m = STATUS_META[b.status];
-                  return (
-                    <div key={b.id} className="px-5 py-4 group hover:bg-slate-50/60 transition-colors">
-                      <div className="flex items-start justify-between gap-2 mb-2">
-                        <div className="flex items-center gap-2 min-w-0">
-                          <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#0c1a3a] to-[#1557b8] flex items-center justify-center text-white text-[9px] font-black flex-shrink-0">
-                            {b.customerName.split(" ").map(n=>n[0]).join("").slice(0,2)}
-                          </div>
-                          <div className="min-w-0">
-                            <p className="text-[#0c1a3a] text-xs font-bold truncate">{b.customerName}</p>
-                            <p className="text-slate-400 text-[10px]">{b.scheduledTime}</p>
-                          </div>
-                        </div>
-                        <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-bold flex-shrink-0 ${m.bg} ${m.text}`}>
-                          <span className={`w-1.5 h-1.5 rounded-full ${m.dot}`} />
-                          {b.status}
-                        </span>
-                      </div>
-                      <p className="text-slate-500 text-[11px] font-medium mb-1">{b.service}</p>
-                      <p className="text-slate-400 text-[10px] truncate mb-3">{b.address}, {b.city}</p>
-
-                      <div className="flex gap-2">
-                        <button
-                          onClick={() => setModal(b)}
-                          className="flex-1 h-7 text-[10px] font-bold text-[#1557b8] bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"
-                        >
-                          View Details
-                        </button>
-                        <a
-                          href={buildWA(b)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-7 h-7 rounded-lg bg-emerald-50 hover:bg-emerald-100 flex items-center justify-center transition-colors"
-                          title="Send to technician"
-                        >
-                          <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
-                        </a>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
+          )}
         </div>
       </div>
 
-      {/* ── Booking detail modal ── */}
+      {/* Modal */}
       {modal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px]" onClick={() => setModal(null)} />
-          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 z-10">
-            <button onClick={() => setModal(null)} className="absolute top-4 right-4 text-slate-300 hover:text-slate-600">
-              <X className="w-5 h-5" />
+        <div style={{ position:"fixed", inset:0, zIndex:50, display:"flex", alignItems:"center", justifyContent:"center", padding:16 }}>
+          <div style={{ position:"absolute", inset:0, background:"rgba(0,0,0,0.5)", backdropFilter:"blur(2px)" }} onClick={()=>setModal(null)} />
+          <div style={{ position:"relative", background:"#fff", borderRadius:16, boxShadow:"0 25px 50px rgba(0,0,0,0.2)", width:"100%", maxWidth:380, padding:24, zIndex:10 }}>
+            <button onClick={()=>setModal(null)} style={{ position:"absolute", top:16, right:16, background:"none", border:"none", cursor:"pointer", color:"#94a3b8" }}>
+              <X style={{ width:17, height:17 }} />
             </button>
-            <p className="font-mono text-[10px] text-slate-400 font-bold mb-1">{modal.id}</p>
-            <h3 className="text-[#0c1a3a] text-lg font-black mb-0.5">{modal.customerName}</h3>
-            <p className="text-slate-400 text-xs mb-4">{modal.phone}</p>
-
-            <div className="bg-slate-50 rounded-xl p-4 mb-4 space-y-2">
-              {[
-                ["Service", modal.service],
-                ["Plan",    modal.plan],
-                ["Time",    modal.scheduledTime],
-                ["Address", `${modal.address}, ${modal.city}, ${modal.state}`],
-              ].map(([label, value]) => (
-                <div key={label} className="flex gap-3">
-                  <span className="text-slate-400 text-[10px] font-semibold w-14 flex-shrink-0">{label}</span>
-                  <span className="text-[#0c1a3a] text-xs font-semibold">{value}</span>
+            <p style={{ fontFamily:"monospace", fontSize:11, color:"#94a3b8", margin:"0 0 4px" }}>{modal.id}</p>
+            <h3 style={{ color:"#0c1a3a", fontSize:17, fontWeight:900, margin:0 }}>{modal.customerName}</h3>
+            <p style={{ color:"#94a3b8", fontSize:13, margin:"4px 0 16px" }}>{modal.phone}</p>
+            <div style={{ background:"#fafafa", borderRadius:10, padding:14, marginBottom:14 }}>
+              {[["Service",modal.service],["Plan",modal.plan],["Time",modal.scheduledTime],["Address",`${modal.address}, ${modal.city}, ${modal.state}`]].map(([l,v])=>(
+                <div key={l} style={{ display:"flex", gap:12, marginBottom:8 }}>
+                  <span style={{ color:"#94a3b8", fontSize:12, fontWeight:600, width:50, flexShrink:0 }}>{l}</span>
+                  <span style={{ color:"#0c1a3a", fontSize:13, fontWeight:600 }}>{v}</span>
                 </div>
               ))}
             </div>
-
-            {modal.notes && (
-              <p className="text-slate-600 text-xs bg-amber-50 border border-amber-100 rounded-xl p-3 mb-4 leading-relaxed">
-                {modal.notes}
-              </p>
-            )}
-
-            <a
-              href={buildWA(modal)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2.5 w-full h-11 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-sm font-bold transition-colors"
-            >
-              <MessageCircle className="w-4 h-4" />
+            {modal.notes && <p style={{ color:"#475569", fontSize:13, background:"#fffbeb", border:"1px solid #fef08a", borderRadius:9, padding:12, marginBottom:14 }}>{modal.notes}</p>}
+            <a href={buildWA(modal)} target="_blank" rel="noopener noreferrer"
+              style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:10, height:44, background:"#16a34a", color:"#fff", borderRadius:10, fontSize:14, fontWeight:700, textDecoration:"none" }}>
+              <MessageCircle style={{ width:15, height:15 }} />
               Send to Technician
             </a>
           </div>
