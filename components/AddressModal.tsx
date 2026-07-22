@@ -103,6 +103,7 @@ export default function AddressModal({ onClose }: AddressModalProps) {
   const [manualCity, setManualCity] = useState("");
   const [manualZip, setManualZip] = useState("");
   const [manualState, setManualState] = useState("NY");
+  const [isStateDropdownOpen, setIsStateDropdownOpen] = useState(false);
   const [loadingText, setLoadingText] = useState("Connecting to Property Assessor API...");
   const [loadingSubtext, setLoadingSubtext] = useState("Querying parcel registry...");
 
@@ -327,22 +328,43 @@ export default function AddressModal({ onClose }: AddressModalProps) {
                 <div>
                   <label className="text-zinc-300 text-xs font-bold uppercase tracking-wider mb-1.5 block">State</label>
                   <div className="relative">
-                    <select
-                      value={manualState}
-                      onChange={(e) => setManualState(e.target.value)}
-                      className="w-full px-5 py-3.5 bg-white text-zinc-900 text-[15px] font-semibold border border-gray-300 rounded-xl shadow-sm outline-none focus:ring-4 focus:ring-[#ffc400]/30 transition-all appearance-none cursor-pointer max-h-48 overflow-y-auto"
-                      required
+                    <button
+                      type="button"
+                      onClick={() => setIsStateDropdownOpen(!isStateDropdownOpen)}
+                      className="w-full px-5 py-3.5 bg-white text-zinc-900 text-[15px] font-semibold rounded-xl shadow-md flex items-center justify-between outline-none focus:ring-4 focus:ring-[#ffc400]/30 transition-all text-left"
                     >
-                      <option value="" disabled>Select State</option>
-                      {ALL_US_STATES.map((st) => (
-                        <option key={st.code} value={st.code}>
-                          {st.name} ({st.code})
-                        </option>
-                      ))}
-                    </select>
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500 font-bold">
-                      ▼
-                    </div>
+                      <span>
+                        {ALL_US_STATES.find(s => s.code === manualState)?.name || "Select State"} {manualState && `(${manualState})`}
+                      </span>
+                      <span className="text-gray-500 font-bold text-xs">
+                        {isStateDropdownOpen ? "▲" : "▼"}
+                      </span>
+                    </button>
+
+                    {/* Custom Scrollable State Dropdown Box */}
+                    {isStateDropdownOpen && (
+                      <div className="absolute bottom-full mb-2 left-0 right-0 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 max-h-52 overflow-y-auto text-left py-1 animate-fade-in">
+                        <div className="px-4 py-2 bg-gray-50 text-[11px] font-bold text-gray-400 uppercase tracking-wider border-b border-gray-100">
+                          Select US State
+                        </div>
+                        {ALL_US_STATES.map((st) => (
+                          <div
+                            key={st.code}
+                            onClick={() => {
+                              setManualState(st.code);
+                              setIsStateDropdownOpen(false);
+                            }}
+                            className={`px-5 py-2.5 text-sm font-semibold cursor-pointer transition-colors border-b border-gray-50 last:border-0 ${
+                              manualState === st.code
+                                ? "bg-blue-50 text-[#0066cc]"
+                                : "text-gray-800 hover:bg-gray-100"
+                            }`}
+                          >
+                            {st.name} ({st.code})
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
                 
