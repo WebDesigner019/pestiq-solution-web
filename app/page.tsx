@@ -95,7 +95,7 @@ export default function HomePage() {
           {/* Background Image Container */}
           <div className="absolute inset-0 z-0">
             <img 
-              src="/images/pest-technician.jpg" 
+              src="/images/pest-technician-pro.png" 
               alt="Pest Technician" 
               className="w-full h-full object-cover"
             />
@@ -425,7 +425,7 @@ export default function HomePage() {
         <section className="bg-white py-20 px-4">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
             <div className="w-full md:w-1/2 rounded-2xl overflow-hidden shadow-2xl h-96">
-              <img src="/images/pest-technician.jpg" alt="Local expert waving" className="w-full h-full object-cover" />
+              <img src="/images/pest-technician-pro.png" alt="Local expert waving" className="w-full h-full object-cover" />
             </div>
             <div className="w-full md:w-1/2">
               <h2 className="text-4xl font-black text-[#071b4d] mb-6 leading-tight">Local experts, global support</h2>
