@@ -292,7 +292,7 @@ export default function PestServicePage(props: { params: Promise<{ slug: string 
           <div className="absolute inset-0 z-0">
             {/* Fallback color if image is missing */}
             <div className="absolute inset-0 bg-[#071b4d] opacity-80 z-10" />
-            <img src={pest.heroImage} alt={pest.name} className="w-full h-full object-cover object-center" />
+            <Image src={pest.heroImage} alt={pest.name} fill className="object-cover object-center" sizes="100vw" priority />
           </div>
           <div className="relative z-20 text-center text-white max-w-3xl px-4">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">{pest.title}</h1>
@@ -340,7 +340,7 @@ export default function PestServicePage(props: { params: Promise<{ slug: string 
         <section className="max-w-6xl mx-auto px-4 py-12">
           <div className="flex flex-col md:flex-row gap-10 items-center">
             <div className="md:w-1/2 w-full h-64 md:h-96 relative rounded-lg overflow-hidden shadow-lg">
-               <img src={pest.heroImage} alt={pest.name} className="w-full h-full object-cover" />
+               <Image src={pest.heroImage} alt={pest.name} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
             </div>
             <div className="md:w-1/2">
               <h2 className="text-3xl font-bold text-[#071b4d] mb-4">Need a {pest.name.toLowerCase()} exterminator?</h2>

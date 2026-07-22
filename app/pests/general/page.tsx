@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { useLocation } from "@/context/LocationContext";
@@ -57,10 +58,13 @@ export default function GeneralPestControlPage() {
         {/* HERO SECTION */}
         <section className="relative w-full min-h-[420px] md:h-[600px] py-12 md:py-0 flex items-center bg-gray-900 overflow-hidden">
           <div className="absolute inset-0 z-0">
-            <img 
+            <Image 
               src="/images/pestiq-technician-home.jpg" 
               alt="Pest Technician" 
-              className="w-full h-full object-cover opacity-70 object-center"
+              fill
+              className="object-cover opacity-70 object-center"
+              priority
+              sizes="100vw"
             />
           </div>
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent z-10"></div>
@@ -109,7 +113,7 @@ export default function GeneralPestControlPage() {
                <div className="absolute top-4 right-4 bg-[#1a7a3c] text-white text-[10px] font-black px-3 py-1 uppercase tracking-widest z-10 rounded-sm shadow-sm">
                  Summer Savings
                </div>
-               <img src="/images/family-lawn.jpg" alt="Family on lawn" className="w-full h-full object-cover absolute inset-0" />
+               <Image src="/images/family-lawn.jpg" alt="Family on lawn" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
             </div>
           </div>
         </section>
@@ -346,8 +350,8 @@ export default function GeneralPestControlPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto items-center">
-              <div className="h-64 md:h-80 rounded-xl overflow-hidden shadow-lg border border-gray-100">
-                <img src={currentPest.image} alt={currentPest.name} className="w-full h-full object-cover" />
+              <div className="h-64 md:h-80 rounded-xl overflow-hidden shadow-lg border border-gray-100 relative">
+                <Image src={currentPest.image} alt={currentPest.name} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
               </div>
               <div className="flex flex-col">
                 <h3 className="text-2xl font-black text-[#1557b8] mb-4">{currentPest.title}</h3>

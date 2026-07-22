@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ShieldCheck, Award, FileText, CheckCircle } from "lucide-react";
@@ -36,11 +37,13 @@ export default function AboutPage() {
                 PestIQ Solutions was designed to solve this by providing address-gated transparent pricing, step-by-step treatment outlines, and reliable callback promises. We align our treatment plans with your specific building structure and neighborhood conditions.
               </p>
             </div>
-            <div className="h-[280px] rounded-xl overflow-hidden border border-gray-200 shadow-md">
-              <img 
+            <div className="h-[280px] rounded-xl overflow-hidden border border-gray-200 shadow-md relative">
+              <Image 
                 src="/images/pestiq-technician-home.jpg" 
                 alt="PestIQ pest control technician performing a residential inspection" 
-                className="w-full h-full object-cover"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
           </section>

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { useLocation } from "@/context/LocationContext";
@@ -94,10 +95,13 @@ export default function HomePage() {
         <section className="relative w-full min-h-[540px] md:h-[620px] py-10 md:py-0 flex items-center bg-[#f4f3f0] overflow-hidden">
           {/* Background Image Container */}
           <div className="absolute inset-0 z-0">
-            <img 
+            <Image 
               src="/images/pestiq-technician-home.jpg" 
               alt="Pest Technician" 
-              className="w-full h-full object-cover object-center"
+              fill
+              className="object-cover object-center"
+              priority
+              sizes="100vw"
             />
             {/* Dark gradient overlay for text readability on left */}
             <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 md:via-black/40 to-black/30 md:to-transparent"></div>
@@ -188,7 +192,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="w-full md:w-1/2 h-64 md:h-auto relative">
-            <img src="/images/family-lawn.jpg" alt="Family playing on a lawn" className="w-full h-full object-cover absolute inset-0" />
+            <Image src="/images/family-lawn.jpg" alt="Family playing on a lawn" fill className="object-cover" sizes="100vw" />
           </div>
         </section>
         <div className="w-full h-4 bg-[#1a7a3c]"></div>
@@ -283,8 +287,8 @@ export default function HomePage() {
 
             <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-start gap-8 md:gap-12 mt-8">
               <div className="w-full md:w-[35%]">
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-sm">
-                  <img src={currentPest.image} alt={currentPest.name} className="w-full h-full object-cover" />
+                <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-sm relative">
+                  <Image src={currentPest.image} alt={currentPest.name} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
                 </div>
               </div>
               
@@ -428,8 +432,8 @@ export default function HomePage() {
         {/* Section 8: Local Experts Split */}
         <section className="bg-white py-20 px-4">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
-            <div className="w-full md:w-1/2 rounded-2xl overflow-hidden shadow-2xl h-96">
-              <img src="/images/pestiq-technician-home.jpg" alt="Local expert waving" className="w-full h-full object-cover" />
+            <div className="w-full md:w-1/2 rounded-2xl overflow-hidden shadow-2xl h-96 relative">
+              <Image src="/images/pestiq-technician-home.jpg" alt="Local expert waving" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
             </div>
             <div className="w-full md:w-1/2">
               <h2 className="text-4xl font-black text-[#071b4d] mb-6 leading-tight">Local experts, global support</h2>
