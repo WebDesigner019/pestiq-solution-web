@@ -8,215 +8,225 @@ import { use } from 'react'
 import Image from 'next/image'
 
 const PEST_DATA: Record<string, any> = {
+  'general': {
+    name: 'General Pest',
+    title: 'General pest control & prevention',
+    subtitle: 'Comprehensive 365-day protection against 39+ common household pests.',
+    heroImage: '/images/pest-technician.jpg',
+    covered: { essential: 25, complete: 39 },
+    description: 'Our general pest control plan covers a broad spectrum of crawling insects, spiders, and rodents. Regular seasonal treatments form an impenetrable barrier around your home.',
+    bullets: ['Covers 39+ common household pests.', 'Seasonal interior and exterior barriers.', 'Free retreatments if pests return.'],
+    tabs: ['Perimeter Barrier', 'Interior Crack & Crevice', 'Foundation Barrier', 'Seasonal Audits']
+  },
   'ants': {
     name: 'Ant',
-    title: 'Ant control and prevention',
-    subtitle: 'Protect your home from ant invasions with our comprehensive treatment plans.',
+    title: 'Ant control & colony elimination',
+    subtitle: 'Protect your home from ant invasions with targeted baiting & perimeter barriers.',
     heroImage: '/images/ant-macro.jpg',
     covered: { essential: 25, complete: 39 },
-    description: 'Ants are one of the most common pests found in homes. They can quickly establish large colonies and become a major nuisance. Professional treatment is necessary to effectively target the entire colony and prevent future infestations.',
-    bullets: ['Can contaminate food and surfaces.', 'Some species can cause structural damage.', 'Quickly build large, complex colonies.'],
-    tabs: ['Residual Spray', 'Bait Stations', 'Perimeter Barrier', 'Colony Elimination']
+    description: 'Ants establish large underground and wall-void colonies. PestIQ targets the queen and subterranean nest pathways to ensure full colony elimination.',
+    bullets: ['Prevents food & kitchen contamination.', 'Destroys hidden subterranean nests.', 'Long-lasting perimeter barrier protection.'],
+    tabs: ['Non-Repellent Liquid', 'Granular Bait Placement', 'Perimeter Barrier', 'Colony Tracking']
   },
   'bats': {
     name: 'Bat',
-    title: 'Humane bat control & exclusion',
-    subtitle: 'Protect your attic and chimney with professional, humane bat exclusion services.',
-    heroImage: '/images/spider.jpg',
+    title: 'Humane bat exclusion & attic cleanup',
+    subtitle: 'Safely exclude bats from attics, roof soffits, and chimneys with zero harm.',
+    heroImage: '/images/suburban-houses.png',
     covered: { essential: 25, complete: 39 },
-    description: 'Bats can nest in attics, eaves, and wall cavities, posing health risks through guano accumulation. PestIQ uses one-way exclusion devices to safely remove bats and seal entry points.',
-    bullets: ['Prevent guano buildup and odor risks.', 'Humane one-way exclusion valves.', 'Comprehensive entry point sealing.'],
-    tabs: ['Attic Inspection', 'One-Way Exclusion', 'Entry Sealing', 'Sanitizing']
+    description: 'Bats take refuge in attics and gable vents, accumulating guano that harbors fungal spores. PestIQ installs legal one-way exclusion valves and sanitizes attic voids.',
+    bullets: ['Humane one-way exclusion cones.', 'Attic guano sanitization & deodorization.', 'Seals all roofline & chimney gaps.'],
+    tabs: ['Attic Audit', 'One-Way Exclusion', 'Gap Sealing', 'Guano Sanitization']
   },
   'bed-bugs': {
     name: 'Bed Bug',
-    title: 'Bed bug extermination & treatment',
-    subtitle: 'Sleep soundly again with our comprehensive thermal & chemical bed bug solutions.',
-    heroImage: '/images/bedroom.jpg',
+    title: 'Bed bug extermination & heat treatment',
+    subtitle: 'Sleep soundly again with specialized thermal & rapid-acting bed bug protocols.',
+    heroImage: '/images/bed-bug-mattress.png',
     covered: { essential: 25, complete: 39 },
-    description: 'Bed bugs hide deep in mattresses, headboards, and baseboards. Our targeted heat and residual treatments target bed bugs at all life stages, including eggs.',
-    bullets: ['Cause itchy welts and severe sleep loss.', 'Hide in microscopic cracks and upholstery.', 'Targeted treatments for complete eradication.'],
-    tabs: ['Thermal Heat', 'Targeted Chemical', 'Mattress Encasement', 'Follow-up Guarantee']
+    description: 'Bed bugs hide deep inside mattress seams, headboards, and electrical outlets. PestIQ applies multi-tiered treatments targeting adults, nymphs, and eggs.',
+    bullets: ['Eliminates bed bugs at all life stages.', 'Targeted mattress & box spring encasements.', 'Rapid relief backed by 90-day guarantee.'],
+    tabs: ['Thermal Heat Boost', 'Residual Micro-Cap', 'Mattress Encasement', 'Follow-up Inspection']
   },
   'birds': {
     name: 'Bird',
-    title: 'Commercial & residential bird control',
-    subtitle: 'Deter pest birds safely with netting, spikes, and humane repellent barriers.',
-    heroImage: '/images/suburban-houses.jpg',
+    title: 'Commercial & residential bird deterrents',
+    subtitle: 'Keep pigeons, starlings, and sparrows off ledges, roofs, and solar panels.',
+    heroImage: '/images/suburban-houses.png',
     covered: { essential: 25, complete: 39 },
-    description: 'Pigeons, sparrows, and starlings can damage roofs, gutters, and solar panels. We install discrete netting, gel repellents, and bird spikes to keep your property clean.',
-    bullets: ['Prevent corrosive bird droppings.', 'Protect solar panels, ledges, and roofs.', 'Humane deterrents and exclusion.'],
-    tabs: ['Anti-Roosting Spikes', 'Discreet Netting', 'Solar Panel Guards', 'Site Cleanup']
+    description: 'Nesting birds damage roof tiles, block gutters, and corrode paint with droppings. We install stainless steel bird spikes, invisible mesh, and solar panel guards.',
+    bullets: ['Protects solar panels & roof ledges.', 'Prevents corrosive bird droppings.', 'Humane netting & anti-roosting spikes.'],
+    tabs: ['Bird Spikes', 'Solar Panel Guards', 'Discreet Netting', 'Structural Decontamination']
   },
   'carpenter-ants': {
     name: 'Carpenter Ant',
-    title: 'Carpenter ant damage control',
-    subtitle: 'Stop wood-destroying carpenter ants before they compromise your home structure.',
+    title: 'Carpenter ant damage prevention',
+    subtitle: 'Stop wood-destroying carpenter ants before they tunnel into structural beams.',
     heroImage: '/images/ant-macro.jpg',
     covered: { essential: 25, complete: 39 },
-    description: 'Unlike termites, carpenter ants excavate wood to build galleries for their colonies. Our specialists locate parent and satellite nests to stop destruction.',
-    bullets: ['Excavate wooden beams and wall studs.', 'Form hidden satellite nests in moist wood.', 'Requires specialized perimeter & void baiting.'],
-    tabs: ['Void Injection', 'Perimeter Barrier', 'Nest Tracking', 'Moisture Inspection']
+    description: 'Carpenter ants excavate wooden framing to build satellite nests. PestIQ injects non-repellent formulations into wall voids to eliminate parent nests.',
+    bullets: ['Stops structural wood excavation.', 'Targets satellite & parent nests.', 'Moisture source inspection included.'],
+    tabs: ['Void Dust Injection', 'Perimeter Liquid Barrier', 'Satellite Nest Search', 'Moisture Audit']
   },
   'centipedes-millipedes': {
     name: 'Centipede & Millipede',
-    title: 'Centipede & millipede control',
-    subtitle: 'Keep multi-legged crawlers out of your basement, crawlspaces, and perimeter.',
-    heroImage: '/images/spider.jpg',
+    title: 'Centipede & millipede eradication',
+    subtitle: 'Keep fast-moving crawlers out of basements, bathrooms, and crawlspaces.',
+    heroImage: '/images/spider-web.png',
     covered: { essential: 25, complete: 39 },
-    description: 'House centipedes and millipedes thrive in high-humidity areas like damp basements and crawlspaces. We treat moisture zones and seal foundation cracks.',
-    bullets: ['Drawn to high indoor humidity.', 'Indicative of underlying moisture issues.', 'Targeted perimeter granular barriers.'],
-    tabs: ['Granular Barrier', 'Crawlspace Treatment', 'Foundation Sealing', 'Dehumidification Advice']
+    description: 'Centipedes and millipedes migrate indoors seeking damp environments. We apply exterior perimeter bands and micro-encapsulated foundation dusts.',
+    bullets: ['Eliminates scary multi-legged crawlers.', 'Targeted damp basement & crawlspace treatment.', 'Foundation crack & weep-hole sealing.'],
+    tabs: ['Perimeter Band Spray', 'Crawlspace Treatment', 'Foundation Dusting', 'Humidity Advice']
   },
   'cockroaches': {
     name: 'Cockroach',
     title: 'Cockroach control & elimination',
-    subtitle: 'Eliminate German, American, and Oriental cockroaches with long-lasting baits.',
+    subtitle: 'Eliminate German, American, and Oriental cockroaches with advance baiting.',
     heroImage: '/images/cockroach.jpg',
     covered: { essential: 25, complete: 39 },
-    description: 'Cockroaches are resilient pests that multiply rapidly and contaminate food prep areas. Our multi-stage treatment combines insect growth regulators (IGRs) and targeted gel baits.',
-    bullets: ['Spread harmful bacteria and trigger allergies.', 'Multiply rapidly in kitchens and bathrooms.', 'Dual-action IGR and bait placement.'],
-    tabs: ['Gel Baiting', 'IGR Application', 'Crack & Crevice Dusting', 'Sanitation Audit']
+    description: 'Cockroaches carry bacteria and allergens. PestIQ combines high-potency gel baits with Insect Growth Regulators (IGRs) to break egg hatching cycles.',
+    bullets: ['Destroys German & American roach nests.', 'IGR technology stops egg reproduction.', 'Food-safe kitchen baiting placement.'],
+    tabs: ['Precision Gel Bait', 'Insect Growth Regulator', 'Crevice Injection', 'Sanitation Check']
   },
   'crickets': {
     name: 'Cricket',
-    title: 'Cricket control & noise relief',
-    subtitle: 'Stop annoying cricket chirping and protect fabric and wallpaper from damage.',
+    title: 'Cricket control & perimeter defense',
+    subtitle: 'Stop loud chirping and protect interior fabrics, rugs, and wallpaper.',
     heroImage: '/images/ant-macro.jpg',
     covered: { essential: 25, complete: 39 },
-    description: 'Camel crickets and field crickets invade dark, cool spaces during seasonal weather changes. We apply perimeter barriers and interior monitoring.',
-    bullets: ['Damage clothes, carpet, and curtains.', 'Attracted to damp basements and garages.', 'Targeted perimeter barrier application.'],
-    tabs: ['Perimeter Dusting', 'Glue Traps', 'Foundation Seal', 'Vegetation Clearing']
+    description: 'Field and camel crickets invade dark basements and garages in large numbers. We set granular barriers and specialized monitoring traps.',
+    bullets: ['Protects clothes, carpets, and fabrics.', 'Eliminates annoying nocturnal chirping.', 'Heavy exterior perimeter granular barrier.'],
+    tabs: ['Granular Perimeter Bait', 'Basement Glue Traps', 'Exterior Gap Seal', 'Mulch Bed Treatment']
   },
   'fleas': {
     name: 'Flea',
-    title: 'Flea extermination & yard protection',
-    subtitle: 'Eradicate persistent fleas from carpets, furniture, and outdoor pet areas.',
-    heroImage: '/images/mosquito.jpg',
+    title: 'Flea eradication & yard protection',
+    subtitle: 'Banish fleas from carpets, pet bedding, and backyard lawn areas.',
+    heroImage: '/images/mosquito-macro.png',
     covered: { essential: 25, complete: 39 },
-    description: 'Flea infestations quickly spread through carpet fibers and pet bedding. Our dual-action indoor and yard treatments break the flea life cycle instantly.',
-    bullets: ['Bite humans and pets relentlessly.', 'Eggs fall into carpets and floor cracks.', 'Adulticides + IGR for complete elimination.'],
-    tabs: ['Carpet Treatment', 'Upholstery Care', 'Yard Mist', 'Lifecycle IGR']
+    description: 'Fleas infest carpets and furniture, biting pets and humans. Our comprehensive protocol includes interior carpet misting and outdoor lawn barrier applications.',
+    bullets: ['Stops relentless flea bites on pets.', 'Breaks adult & pupae flea lifecycle.', 'Dual indoor carpet & yard mist.'],
+    tabs: ['Indoor Carpet Spray', 'Yard Border Mist', 'Flea Life-Cycle IGR', 'Furniture Upholstery Care']
   },
   'flies': {
     name: 'Fly',
-    title: 'House & drain fly management',
-    subtitle: 'Eliminate fruit flies, drain flies, and house flies with targeted bio-treatments.',
-    heroImage: '/images/mosquito.jpg',
+    title: 'House, fruit & drain fly management',
+    subtitle: 'Eliminate breeding sites for fruit flies, phorid flies, and house flies.',
+    heroImage: '/images/mosquito-macro.png',
     covered: { essential: 25, complete: 39 },
-    description: 'Flies land on unsanitary surfaces and transfer pathogens to food areas. We utilize bio-enzymatic drain cleaners and light traps for total control.',
-    bullets: ['Contaminate food and cooking counters.', 'Breeds in plumbing drains and trash bins.', 'Bio-enzymatic drain treatment.'],
-    tabs: ['Drain Foam', 'Light Traps', 'Bait Stations', 'Source Removal']
+    description: 'Flies breed in plumbing organic matter and trash cans. PestIQ uses bio-enzymatic drain foams and UV light traps to digest breeding zones.',
+    bullets: ['Clears fruit flies & drain flies.', 'Bio-enzymatic foam breaks down drain sludge.', 'Discreet light traps for food prep areas.'],
+    tabs: ['Bio-Drain Foam', 'Light Trap Installation', 'Exterior Fly Bait', 'Sanitation Inspection']
   },
   'mice': {
     name: 'Mice',
-    title: 'Mice control & structural exclusion',
-    subtitle: 'Seal entry points and trap invading mice to keep your kitchen rodent-free.',
-    heroImage: '/images/rodent.jpg',
+    title: 'Mice control & steel mesh exclusion',
+    subtitle: 'Seal dime-sized entry holes and trap invading mice for a rodent-free home.',
+    heroImage: '/images/rodent-mouse.png',
     covered: { essential: 25, complete: 39 },
-    description: 'Mice can fit through holes as small as a dime. PestIQ technicians conduct thorough inspections to identify and seal entryways while setting tamper-proof stations.',
-    bullets: ['Fits through dime-sized entry holes.', 'Chew electrical wires causing fire hazards.', 'Comprehensive exclusion sealing included.'],
-    tabs: ['Steel Mesh Exclusion', 'Tamper-Proof Stations', 'Sanitization', 'Monitoring']
+    description: 'Mice contaminate food stores and chew wires inside wall cavities. PestIQ technicians perform complete steel mesh exclusion and tamper-resistant trapping.',
+    bullets: ['Seals dime-sized foundation gaps.', 'Prevents wire chewing & fire hazards.', 'Tamper-proof baiting & trapping.'],
+    tabs: ['Copper & Steel Exclusion', 'Indoor Trapping Array', 'Exterior Bait Stations', 'Sanitizing Treatment']
   },
   'mosquitoes': {
     name: 'Mosquito',
-    title: 'Mosquito control & yard misting',
-    subtitle: 'Enjoy your yard all summer with automated seasonal mosquito barrier mists.',
-    heroImage: '/images/mosquito.jpg',
+    title: 'Mosquito yard reduction & foliage misting',
+    subtitle: 'Take back your backyard with monthly seasonal mosquito foliage barriers.',
+    heroImage: '/images/mosquito-macro.png',
     covered: { essential: 25, complete: 39 },
-    description: 'Mosquitoes breed in standing water and rest under foliage. Our recurring outdoor treatments coat leaf undersides to eliminate mosquitoes on contact.',
-    bullets: ['Transmits West Nile & Zika viruses.', 'Targets foliage and shaded resting zones.', 'Eco-friendly barrier treatments.'],
-    tabs: ['Foliage Mist', 'Larvicide Placement', 'Gutter Inspection', 'Monthly Protection']
+    description: 'Mosquitoes rest under shaded leaves during daytime. PestIQ coats the underside of bushes and trees with eco-friendly barrier mists to knock down populations.',
+    bullets: ['Reduces mosquito bites by up to 90%.', 'Targeted leaf-underside barrier misting.', 'Standing water larvicide treatment.'],
+    tabs: ['Shade Foliage Mist', 'Larvicide Briquettes', 'Property Drainage Check', 'Monthly Seasonal Pass']
   },
   'moths': {
     name: 'Moth',
-    title: 'Pantry & clothes moth treatment',
-    subtitle: 'Protect your wardrobes, carpets, and pantry items from moth larvae damage.',
+    title: 'Pantry & clothes moth extermination',
+    subtitle: 'Protect pantry grains, wool suits, and oriental rugs from destructive larvae.',
     heroImage: '/images/ant-macro.jpg',
     covered: { essential: 25, complete: 39 },
-    description: 'Pantry moths infest dry grains, while clothes moths destroy wool and silk. We use pheromone monitoring traps and targeted micro-encapsulated treatments.',
-    bullets: ['Larvae eat natural fibers and wool.', 'Infest cereal, flour, and pet food.', 'Pheromone monitoring and targeted spray.'],
-    tabs: ['Pheromone Traps', 'Cabinet Cleaning', 'Targeted Treatment', 'Preventative Seal']
+    description: 'Moth larvae feed on cereal products or natural fibers like wool and silk. We utilize specialized pheromone lure traps and micro-encapsulated void treatments.',
+    bullets: ['Protects woolens, silk, and rugs.', 'Pheromone lures stop mating cycles.', 'Safe pantry & closet treatments.'],
+    tabs: ['Pheromone Traps', 'Closet Crevice Treatment', 'Pantry Sanitation', 'Preventative Inspection']
   },
   'rats': {
     name: 'Rat',
-    title: 'Rat control & baiting systems',
-    subtitle: 'Eliminate Norway and roof rats with heavy-duty exclusion and baiting.',
-    heroImage: '/images/rodent.jpg',
+    title: 'Norway & roof rat control',
+    subtitle: 'Heavy-duty rat trapping, burrow baiting, and structural exclusion.',
+    heroImage: '/images/rodent-mouse.png',
     covered: { essential: 25, complete: 39 },
-    description: 'Rats pose serious health risks and can gnaw through pipes and wiring. Our rat control plan incorporates heavy exclusion, exterior baiting, and interior trapping.',
-    bullets: ['Gnaw through wood, plastic, and soft metal.', 'Vector for serious bacterial diseases.', 'Heavy-duty tamper-proof bait boxes.'],
-    tabs: ['Exterior Rodent Stations', 'Structural Exclusion', 'Attic Trapping', 'Sanitation']
+    description: 'Rats pose severe structural risks by burrowing around foundations and gnawing pipes. PestIQ sets heavy-duty exterior bait boxes and seals entry points.',
+    bullets: ['Heavy-duty tamper-proof rat boxes.', 'Burrow treatment & foundation seal.', 'Prevents pipe & insulation destruction.'],
+    tabs: ['Rat Box Installation', 'Foundation Heavy Seal', 'Attic & Crawl Traps', 'Sanitization']
   },
   'rodents': {
     name: 'Rodent',
     title: 'Complete rodent control & exclusion',
-    subtitle: 'Keep your home safe from destructive mice and rats with full 365 protection.',
-    heroImage: '/images/rodent.jpg',
+    subtitle: 'Full 365-day protection against mice, rats, and squirrels.',
+    heroImage: '/images/rodent-mouse.png',
     covered: { essential: 25, complete: 39 },
-    description: 'Integrated rat and mouse control designed for residential and commercial properties. We inspect crawlspaces, attics, and foundations.',
-    bullets: ['Covers all species of mice and rats.', 'Prevents food contamination and fire risks.', 'Includes 100% money-back guarantee.'],
-    tabs: ['Full Inspection', 'Foundation Sealing', 'Baiting & Trapping', 'Seasonal Checks']
+    description: 'Comprehensive rodent defense covering all species. We inspect attics, basements, and foundation weep holes to ensure total exclusion.',
+    bullets: ['Covers all species of mice & rats.', 'Full perimeter exclusion warranty.', 'Free retreatments if rodents return.'],
+    tabs: ['Full Home Audit', 'Steel Exclusion Seal', 'Multi-Catch Trapping', 'Exterior Defense']
   },
   'scorpions': {
     name: 'Scorpion',
-    title: 'Scorpion exclusion & barrier spray',
-    subtitle: 'Prevent scorpions from creeping into shoes, bedding, and patio areas.',
-    heroImage: '/images/spider.jpg',
+    title: 'Scorpion barrier & nocturnal blacklight audit',
+    subtitle: 'Keep stinging scorpions out of shoes, bedding, and patio living areas.',
+    heroImage: '/images/spider-web.png',
     covered: { essential: 25, complete: 39 },
-    description: 'Scorpions enter homes seeking water and shade. We apply specialized micro-encapsulated perimeter barriers and conduct blacklight nocturnal audits.',
-    bullets: ['Painful stings, especially to children and pets.', 'Hides in dark cracks, boots, and palm trees.', 'Blacklight night inspection available.'],
-    tabs: ['Blacklight Audit', 'Perimeter Barrier', 'Weep Hole Screen', 'Harborage Removal']
+    description: 'Scorpions seek cool shelter under foundation weep holes and block walls. We apply specialized micro-encapsulated barriers and offer night blacklight audits.',
+    bullets: ['Micro-encapsulated scorpion barrier.', 'Weep-hole mesh installation.', 'Nocturnal blacklight audit service.'],
+    tabs: ['Micro-Cap Spray', 'Weep Hole Screen', 'Blacklight Night Check', 'Harborage Cleanup']
   },
   'silverfish': {
     name: 'Silverfish',
     title: 'Silverfish control & humidity reduction',
-    subtitle: 'Stop silverfish from damaging books, documents, and linen closets.',
-    heroImage: '/images/ant-macro.jpg',
+    subtitle: 'Prevent silverfish from feeding on books, wallpaper adhesive, and linen closets.',
+    heroImage: '/images/spider-web.png',
     covered: { essential: 25, complete: 39 },
-    description: 'Silverfish consume starches, paper, and adhesive bindings. We apply long-lasting perimeter dusts and recommend humidity control tactics.',
-    bullets: ['Feeds on paper, book bindings, and starch.', 'Thrives in high indoor humidity.', 'Precision crack and crevice treatment.'],
-    tabs: ['Dusting Injections', 'Attic Treatment', 'Moisture Audit', 'Dehumidifier Tips']
+    description: 'Silverfish thrive in high humidity and consume starches in wallpaper and book bindings. We inject long-lasting desiccant dusts into wall voids.',
+    bullets: ['Protects wallpaper, books, & linens.', 'Deep wall-void desiccant dusting.', 'Dehumidification & ventilation advice.'],
+    tabs: ['Wall-Void Dusting', 'Attic Barrier', 'Plumbing Void Injection', 'Humidity Audit']
   },
   'spiders': {
     name: 'Spider',
-    title: 'Spider control & web removal',
-    subtitle: 'Clear away unsightly webs and keep dangerous spiders away from your family.',
-    heroImage: '/images/spider.jpg',
+    title: 'Spider control & eave de-webbing',
+    subtitle: 'Sweep away spider webs and clear black widows and brown recluses.',
+    heroImage: '/images/spider-web.png',
     covered: { essential: 25, complete: 39 },
-    description: 'From common house spiders to black widows and brown recluses, our technician sweeps eaves and applies barrier sprays to curb spider prey.',
-    bullets: ['De-webbing service up to 2 stories.', 'Targets black widows and brown recluses.', 'Eliminates underlying insect prey.'],
-    tabs: ['Eave De-Webbing', 'Perimeter Spray', 'Window Sill Treatment', 'Basement Seal']
+    description: 'Spiders build webs around windows, soffits, and light fixtures. PestIQ performs complete 2-story eave de-webbing and applies targeted window/door frame sprays.',
+    bullets: ['2-Story eave & soffit de-webbing.', 'Targeted black widow & recluse treatment.', 'Eliminates spider insect prey.'],
+    tabs: ['Eave De-Webbing', 'Perimeter Barrier Spray', 'Window Frame Seal', 'Basement Sweep']
   },
   'stinging-pests': {
     name: 'Stinging Pest',
-    title: 'Stinging pest nest removal',
-    subtitle: 'Protect your family from yellowjackets, hornets, bees, and wasps.',
+    title: 'Stinging insect & nest neutralization',
+    subtitle: 'Safely neutralize hornets, yellowjackets, bees, and wasps from eaves & bushes.',
     heroImage: '/images/ant-macro.jpg',
     covered: { essential: 25, complete: 39 },
-    description: 'Stinging insects built dangerous nests in roof eaves, soffits, and underground cavities. Our certified technicians safely neutralize and remove nests.',
-    bullets: ['Protects against painful allergic stings.', 'Safe removal of aerial and ground nests.', 'Preventative eave treatment.'],
-    tabs: ['Nest Neutralization', 'Safe Removal', 'Eave Treatment', 'Preventative Dust']
+    description: 'Stinging insects create hazardous nests near doorways and rooflines. Our certified techs use protective suits and high-reach poles to safely remove nests.',
+    bullets: ['Protects against severe allergic stings.', 'Safe removal of aerial & ground nests.', 'Preventative soffit dust application.'],
+    tabs: ['High-Reach Nest Removal', 'Dust Injection', 'Eave Barrier', 'Safety Inspection']
   },
   'ticks': {
     name: 'Tick',
-    title: 'Tick reduction & lawn barrier',
-    subtitle: 'Keep your pets and kids safe from Lyme disease with yard tick sprays.',
-    heroImage: '/images/mosquito.jpg',
+    title: 'Tick control & Lyme disease defense',
+    subtitle: 'Protect your children and pets with targeted woodline and yard tick barriers.',
+    heroImage: '/images/mosquito-macro.png',
     covered: { essential: 25, complete: 39 },
-    description: 'Ticks cling to tall grass and leaf litter waiting for hosts. We treat perimeter vegetation borders to stop ticks before they reach your lawn.',
-    bullets: ['Prevents Lyme disease and tick bites.', 'Focuses on woodlines and high grass.', 'Pet-friendly after drying.'],
-    tabs: ['Lawn Edge Mist', 'Leaf Litter Spray', 'Pet Safety Audit', 'Bi-Monthly Service']
+    description: 'Ticks hide in tall grass and leaf litter. PestIQ sprays perimeter woodlines and lawn borders to prevent ticks from hitching a ride on your family.',
+    bullets: ['Defends against Lyme disease & ticks.', 'Targets leaf litter & woodline borders.', 'Pet-safe after drying.'],
+    tabs: ['Woodline Border Mist', 'Leaf Litter Treatment', 'Perimeter Granulars', 'Bi-Monthly Check']
   },
   'wasps': {
     name: 'Wasp',
-    title: 'Wasp nest extermination',
-    subtitle: 'Prompt wasp and hornet nest removal with guaranteed eave protection.',
+    title: 'Wasp nest extermination & eave guard',
+    subtitle: 'Fast-response wasp nest knockdown and lingering eave repellent treatment.',
     heroImage: '/images/ant-macro.jpg',
     covered: { essential: 25, complete: 39 },
-    description: 'Wasps build paper nests under eaves, porch ceilings, and deck railings. PestIQ provides fast-response nest knockdown and lingering deterrents.',
-    bullets: ['Prevents aggressive swarm attacks.', 'Knocks down paper nests safely.', 'Applies invisible eave repellents.'],
-    tabs: ['Knockdown Pole', 'Aerosol Treatment', 'Eave Seal', 'Seasonal Guarantee']
+    description: 'Wasps build paper nests under deck railings and roof eaves. PestIQ offers fast-response knockdown and lingering repellent dusts to prevent rebuilding.',
+    bullets: ['Prevents painful aggressive stings.', 'Safely knocks down paper nests.', 'Applies eave repellent dust.'],
+    tabs: ['Nest Knockdown', 'Eave Dusting', 'Deck Railing Treatment', 'Seasonal Guarantee']
   }
 };
 

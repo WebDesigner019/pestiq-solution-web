@@ -6,23 +6,27 @@ import { useLocation } from "@/context/LocationContext";
 import { MapPin, Phone, ShoppingCart, User, ChevronDown, Menu } from "lucide-react";
 export function Logo() {
   return (
-    <Link href="/" className="flex items-center gap-2.5 group" aria-label="PestIQ Home">
-      <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#0a2540] to-[#071b4d] flex items-center justify-center p-1.5 shadow-md border border-[#1a7a3c]/30 group-hover:scale-105 transition-transform">
-        <svg viewBox="0 0 512 512" className="w-full h-full">
-          <path d="M256 32 L432 96 V240 C432 352 344 448 256 480 C168 448 80 352 80 240 V96 Z" fill="#0a2540" />
-          <path d="M256 64 L396 116 V232 C396 324 324 406 256 434 C188 406 116 324 116 232 V116 Z" fill="none" stroke="#1a7a3c" strokeWidth="24" />
-          <path d="M256 140 C310 140 330 200 310 270 C290 340 256 370 256 370 C256 370 222 340 202 270 C182 200 202 140 256 140 Z" fill="#1a7a3c" />
-          <path d="M256 160 V340" stroke="#ffc400" strokeWidth="16" strokeLinecap="round" />
-          <circle cx="256" cy="230" r="22" fill="#ffc400" />
+    <Link href="/" className="flex items-center gap-3 group py-1" aria-label="PestIQ Solutions Home">
+      {/* Modern Geometric P-Shield Mark */}
+      <div className="w-10 h-10 rounded-xl bg-[#071b4d] flex items-center justify-center p-2 shadow-lg border border-[#1a7a3c]/40 group-hover:border-[#1a7a3c] transition-all group-hover:scale-105">
+        <svg viewBox="0 0 100 100" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          {/* Shield Outer Line */}
+          <path d="M50 8 L85 24 V52 C85 72 68 88 50 94 C32 88 15 72 15 52 V24 L50 8 Z" fill="#0a2540" stroke="#1a7a3c" strokeWidth="6" strokeLinejoin="round" />
+          {/* Stylized P-Leaf Icon */}
+          <path d="M38 30 H58 C66 30 72 36 72 44 C72 52 66 58 58 58 H38 V30 Z" fill="#1a7a3c" />
+          <path d="M38 30 V72" stroke="#ffffff" strokeWidth="7" strokeLinecap="round" />
+          {/* Gold Sparkle Accent */}
+          <circle cx="58" cy="44" r="5" fill="#ffc400" />
         </svg>
       </div>
-      <div className="flex flex-col">
-        <span className="text-2xl font-black tracking-tight leading-none flex items-center">
-          <span className="text-[#071b4d]">PEST</span>
-          <span className="text-[#1a7a3c] font-black">IQ</span>
-        </span>
-        <span className="text-[8px] font-extrabold tracking-[0.28em] text-gray-500 uppercase mt-0.5">
-          SOLUTIONS
+      <div className="flex flex-col justify-center">
+        <div className="flex items-center leading-none">
+          <span className="text-2xl font-black tracking-tight text-[#071b4d]">PEST</span>
+          <span className="text-2xl font-black tracking-tight text-[#1a7a3c]">IQ</span>
+          <span className="ml-1 text-[10px] font-black text-[#ffc400] bg-[#071b4d] px-1 py-0.5 rounded tracking-widest uppercase">PRO</span>
+        </div>
+        <span className="text-[8.5px] font-extrabold tracking-[0.26em] text-gray-500 uppercase mt-1">
+          PEST & HOME SOLUTIONS
         </span>
       </div>
     </Link>
