@@ -16,15 +16,15 @@ import {
 } from "lucide-react";
 
 const NAV = [
-  { href: "/admin/overview",   label: "Overview",   icon: LayoutDashboard },
-  { href: "/admin/bookings",   label: "Bookings",   icon: ClipboardList,  badge: 3 },
-  { href: "/admin/customers",  label: "Customers",  icon: Users           },
-  { href: "/admin/calendar",   label: "Calendar",   icon: CalendarDays    },
+  { href: "/admin/overview",  label: "Overview",  icon: LayoutDashboard },
+  { href: "/admin/bookings",  label: "Bookings",  icon: ClipboardList,  badge: 3 },
+  { href: "/admin/customers", label: "Customers", icon: Users           },
+  { href: "/admin/calendar",  label: "Calendar",  icon: CalendarDays    },
 ];
 
 export default function AdminSidebar() {
-  const pathname  = usePathname();
-  const router    = useRouter();
+  const pathname = usePathname();
+  const router   = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleLogout = () => {
@@ -33,29 +33,42 @@ export default function AdminSidebar() {
   };
 
   const Content = () => (
-    <div className="flex flex-col h-full select-none">
+    <div className="flex flex-col h-full">
 
       {/* ── Brand ── */}
-      <div className="px-5 py-5 flex items-center gap-3 border-b border-white/10">
-        <div className="w-8 h-8 rounded-lg bg-yellow-400 flex items-center justify-center flex-shrink-0 shadow-lg">
-          <Bug className="w-4 h-4 text-[#0c1a3a]" />
+      <div
+        style={{ padding: "20px 16px 16px", borderBottom: "1px solid rgba(255,255,255,0.1)", display: "flex", alignItems: "center", gap: "10px" }}
+      >
+        <div style={{
+          width: 34, height: 34, borderRadius: 10,
+          backgroundColor: "#FACC15",
+          display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0
+        }}>
+          <Bug style={{ width: 16, height: 16, color: "#071b4d" }} />
         </div>
-        <div className="leading-tight">
-          <p className="text-white font-black text-[15px] tracking-tight">PestIQ</p>
-          <p className="text-white/40 text-[9px] font-semibold uppercase tracking-[0.15em]">Admin Portal</p>
+        <div>
+          <p style={{ color: "#FFFFFF", fontWeight: 900, fontSize: 15, margin: 0, letterSpacing: "-0.02em" }}>PestIQ</p>
+          <p style={{ color: "#94a3b8", fontWeight: 600, fontSize: 9, margin: 0, textTransform: "uppercase", letterSpacing: "0.15em" }}>Admin Portal</p>
         </div>
-        {/* Notification dot */}
-        <div className="ml-auto relative">
-          <Bell className="w-4 h-4 text-white/40" />
-          <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-yellow-400" />
+        <div style={{ marginLeft: "auto", position: "relative" }}>
+          <Bell style={{ width: 15, height: 15, color: "#94a3b8" }} />
+          <span style={{
+            position: "absolute", top: -2, right: -2,
+            width: 7, height: 7, borderRadius: "50%", backgroundColor: "#FACC15"
+          }} />
         </div>
       </div>
 
       {/* ── Nav ── */}
-      <nav className="flex-1 px-3 py-4 space-y-0.5">
-        <p className="text-white/30 text-[9px] font-black uppercase tracking-[0.18em] px-3 pb-2 pt-1">
+      <nav style={{ flex: 1, padding: "12px 10px", display: "flex", flexDirection: "column", gap: 2 }}>
+        <p style={{
+          color: "#64748b", fontSize: 9, fontWeight: 800,
+          textTransform: "uppercase", letterSpacing: "0.18em",
+          padding: "4px 10px 8px", margin: 0
+        }}>
           Management
         </p>
+
         {NAV.map(({ href, label, icon: Icon, badge }) => {
           const active = pathname === href || pathname.startsWith(href + "/");
           return (
@@ -63,23 +76,34 @@ export default function AdminSidebar() {
               key={href}
               href={href}
               onClick={() => setMobileOpen(false)}
-              className={`
-                group flex items-center gap-3 px-3 py-2.5 rounded-lg text-[13px] font-semibold
-                transition-all duration-150 relative
-                ${active
-                  ? "bg-white/10 text-white"
-                  : "text-white/60 hover:text-white hover:bg-white/[0.07]"
-                }
-              `}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                padding: "9px 12px",
+                borderRadius: 10,
+                textDecoration: "none",
+                fontSize: 13,
+                fontWeight: 600,
+                position: "relative",
+                transition: "all 0.15s",
+                backgroundColor: active ? "#1e3a6e" : "transparent",
+                color: active ? "#FFFFFF" : "#cbd5e1",
+                borderLeft: active ? "3px solid #FACC15" : "3px solid transparent",
+              }}
             >
-              {/* Active accent bar */}
-              {active && (
-                <span className="absolute left-0 inset-y-1 w-0.5 rounded-r-full bg-yellow-400" />
-              )}
-              <Icon className={`w-4 h-4 flex-shrink-0 ${active ? "text-yellow-400" : "text-white/40 group-hover:text-white/70"}`} />
-              <span className="flex-1">{label}</span>
+              <Icon style={{
+                width: 16, height: 16, flexShrink: 0,
+                color: active ? "#FACC15" : "#64748b"
+              }} />
+              <span style={{ flex: 1 }}>{label}</span>
               {badge && (
-                <span className={`text-[10px] font-black px-1.5 py-0.5 rounded-full ${active ? "bg-yellow-400 text-[#0c1a3a]" : "bg-white/10 text-white/60"}`}>
+                <span style={{
+                  fontSize: 10, fontWeight: 800,
+                  padding: "1px 6px", borderRadius: 999,
+                  backgroundColor: active ? "#FACC15" : "#1e293b",
+                  color: active ? "#071b4d" : "#94a3b8",
+                }}>
                   {badge}
                 </span>
               )}
@@ -89,24 +113,46 @@ export default function AdminSidebar() {
       </nav>
 
       {/* ── Bottom: user + logout ── */}
-      <div className="px-3 py-4 border-t border-white/10 space-y-1">
+      <div style={{ padding: "10px", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
         {/* User row */}
-        <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg">
-          <div className="w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white text-xs font-black flex-shrink-0">
+        <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 10px" }}>
+          <div style={{
+            width: 30, height: 30, borderRadius: "50%",
+            backgroundColor: "#1e3a6e",
+            border: "1px solid #334155",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            color: "#FFFFFF", fontSize: 11, fontWeight: 900, flexShrink: 0
+          }}>
             A
           </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-white text-[12px] font-semibold truncate">Administrator</p>
-            <p className="text-white/40 text-[10px] truncate">pestiq-solutions.com</p>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <p style={{ color: "#FFFFFF", fontSize: 12, fontWeight: 700, margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+              Administrator
+            </p>
+            <p style={{ color: "#64748b", fontSize: 10, margin: 0 }}>PestIQ Solutions</p>
           </div>
         </div>
 
         {/* Log out */}
         <button
           onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-[13px] font-semibold text-white/50 hover:text-white hover:bg-white/[0.07] transition-colors"
+          style={{
+            width: "100%", display: "flex", alignItems: "center", gap: 10,
+            padding: "9px 12px", borderRadius: 10, border: "none",
+            backgroundColor: "transparent", cursor: "pointer",
+            color: "#94a3b8", fontSize: 13, fontWeight: 600,
+            transition: "all 0.15s",
+          }}
+          onMouseEnter={e => {
+            (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#1e293b";
+            (e.currentTarget as HTMLButtonElement).style.color = "#FFFFFF";
+          }}
+          onMouseLeave={e => {
+            (e.currentTarget as HTMLButtonElement).style.backgroundColor = "transparent";
+            (e.currentTarget as HTMLButtonElement).style.color = "#94a3b8";
+          }}
         >
-          <LogOut className="w-4 h-4 flex-shrink-0 text-white/30" />
+          <LogOut style={{ width: 15, height: 15, color: "#64748b", flexShrink: 0 }} />
           Log Out
         </button>
       </div>
@@ -118,26 +164,59 @@ export default function AdminSidebar() {
       {/* Mobile toggle */}
       <button
         onClick={() => setMobileOpen(true)}
-        className="lg:hidden fixed top-4 left-4 z-50 w-9 h-9 bg-[#0c1a3a] rounded-lg flex items-center justify-center text-white shadow-lg"
+        style={{
+          display: "flex", position: "fixed", top: 14, left: 14, zIndex: 50,
+          width: 36, height: 36, borderRadius: 8,
+          backgroundColor: "#071b4d", border: "none", cursor: "pointer",
+          alignItems: "center", justifyContent: "center", color: "#FFFFFF",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.3)"
+        }}
+        className="lg:hidden"
       >
-        <Menu className="w-4 h-4" />
+        <Menu style={{ width: 16, height: 16 }} />
       </button>
 
       {/* Mobile backdrop */}
       {mobileOpen && (
-        <div className="lg:hidden fixed inset-0 z-40 bg-black/60 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
+        <div
+          className="lg:hidden"
+          style={{ position: "fixed", inset: 0, zIndex: 40, backgroundColor: "rgba(0,0,0,0.6)", backdropFilter: "blur(2px)" }}
+          onClick={() => setMobileOpen(false)}
+        />
       )}
 
       {/* Mobile drawer */}
-      <div className={`lg:hidden fixed inset-y-0 left-0 z-50 w-56 bg-[#0c1a3a] transform transition-transform duration-300 ${mobileOpen ? "translate-x-0" : "-translate-x-full"}`}>
-        <button onClick={() => setMobileOpen(false)} className="absolute top-3 right-3 text-white/40 hover:text-white">
-          <X className="w-4 h-4" />
+      <div
+        className="lg:hidden"
+        style={{
+          position: "fixed", top: 0, left: 0, bottom: 0, zIndex: 50, width: 210,
+          backgroundColor: "#0f2052",
+          transform: mobileOpen ? "translateX(0)" : "translateX(-100%)",
+          transition: "transform 0.3s ease",
+        }}
+      >
+        <button
+          onClick={() => setMobileOpen(false)}
+          style={{ position: "absolute", top: 12, right: 12, background: "none", border: "none", cursor: "pointer", color: "#94a3b8" }}
+        >
+          <X style={{ width: 16, height: 16 }} />
         </button>
         <Content />
       </div>
 
       {/* Desktop sidebar */}
-      <aside className="hidden lg:flex flex-col w-[200px] bg-[#0c1a3a] flex-shrink-0 h-screen sticky top-0">
+      <aside
+        className="hidden lg:flex"
+        style={{
+          flexDirection: "column",
+          width: 210,
+          backgroundColor: "#0f2052",
+          flexShrink: 0,
+          height: "100vh",
+          position: "sticky",
+          top: 0,
+        }}
+      >
         <Content />
       </aside>
     </>
