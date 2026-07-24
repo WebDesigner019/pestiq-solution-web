@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import AdminSidebar from "@/components/admin/AdminSidebar";
 import AdminTopBar from "@/components/admin/AdminTopBar";
@@ -11,7 +11,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const [checked, setChecked] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (pathname === "/admin" || pathname === "/admin/") {
       setChecked(true);
       return;
@@ -24,24 +24,28 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     }
   }, [pathname, router]);
 
-  if (pathname === "/admin" || pathname === "/admin/") {
-    return <>{children}</>;
-  }
+  const isLoginPage = pathname === "/admin" || pathname === "/admin/";
+
+  if (isLoginPage) return <>{children}</>;
 
   if (!checked) {
     return (
       <div style={{ minHeight: "100vh", background: "#071b4d", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div style={{ width: 24, height: 24, border: "2px solid #FACC15", borderTopColor: "transparent", borderRadius: "50%", animation: "spin 0.8s linear infinite" }} />
+        <div style={{
+          width: 28, height: 28,
+          border: "3px solid rgba(250,204,21,0.3)",
+          borderTopColor: "#FACC15",
+          borderRadius: "50%",
+          animation: "spin 0.8s linear infinite"
+        }} />
+        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
       </div>
     );
   }
 
   return (
-    <div style={{ display: "flex", height: "100vh", overflow: "hidden", background: "#f8f9fb" }}>
-      {/* Sidebar */}
+    <div style={{ display: "flex", height: "100vh", overflow: "hidden", background: "#f4f6fb" }}>
       <AdminSidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(o => !o)} />
-
-      {/* Main */}
       <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", overflow: "hidden" }}>
         <AdminTopBar sidebarOpen={sidebarOpen} onToggle={() => setSidebarOpen(o => !o)} />
         <main style={{ flex: 1, overflowY: "auto", overflowX: "hidden" }}>
